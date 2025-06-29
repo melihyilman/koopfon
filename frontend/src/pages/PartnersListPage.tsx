@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import {
   Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
-  TextField, Box, Collapse, Select, MenuItem, FormControl, InputLabel, Dialog, DialogTitle, DialogContent, DialogActions
+  TextField, Box, Collapse, Select, MenuItem, FormControl, InputLabel, Dialog, DialogTitle, DialogContent, DialogActions,
+  Chip, Stack, Grid
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import AddIcon from '@mui/icons-material/Add';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import BusinessIcon from '@mui/icons-material/Business';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import ClearIcon from '@mui/icons-material/Clear';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 // Mock data for demonstration
 type Partner = {
@@ -40,6 +48,22 @@ const initialPartners: Partner[] = [
     payAdedi: 50,
     durum: 'Ortaklıktan Çıktı',
     tip: 'Gerçek',
+  },
+  {
+    id: '4',
+    ortaklikNo: '1003',
+    isimUnvan: 'Mehmet Can',
+    payAdedi: 200,
+    durum: 'Ortaklığı Devretti',
+    tip: 'Gerçek',
+  },
+  {
+    id: '5',
+    ortaklikNo: '1004',
+    isimUnvan: 'XYZ Holding A.Ş.',
+    payAdedi: 1000,
+    durum: 'Halen Ortak',
+    tip: 'Tüzel',
   },
 ];
 
@@ -96,15 +120,15 @@ const PartnersListPage: React.FC = () => {
   return (
     <>
       <Typography variant="h4" gutterBottom>
-        Ortaklar Listesi
+        👥 Ortaklar Listesi
       </Typography>
 
       <Box sx={{ mb: 2 }}>
-        <Button variant="contained" color="primary" onClick={handleOpenPersonDialog} sx={{ mr: 1 }}>
-          + Gerçek Kişi Ortak Ekle
+        <Button variant="contained" color="primary" onClick={handleOpenPersonDialog} sx={{ mr: 1 }} startIcon={<PersonAddIcon />}>
+          Gerçek Kişi Ortak Ekle
         </Button>
-        <Button variant="contained" color="primary" onClick={handleOpenLegalEntityDialog}>
-          + Tüzel Kişi Ortak Ekle
+        <Button variant="contained" color="primary" onClick={handleOpenLegalEntityDialog} startIcon={<BusinessIcon />}>
+          Tüzel Kişi Ortak Ekle
         </Button>
       </Box>
 
@@ -112,7 +136,7 @@ const PartnersListPage: React.FC = () => {
         <Button variant="outlined" onClick={handleToggleAdvancedFilters} startIcon={showAdvancedFilters ? <ExpandLessIcon /> : <ExpandMoreIcon />}>
           {showAdvancedFilters ? 'Gelişmiş filtreleri gizle' : 'Gelişmiş filtreleri göster'}
         </Button>
-        <Button variant="outlined" sx={{ ml: 1 }} onClick={handleClearFilters}>
+        <Button variant="outlined" sx={{ ml: 1 }} onClick={handleClearFilters} startIcon={<ClearIcon />}>
           Temizle
         </Button>
       </Box>
@@ -182,50 +206,96 @@ const PartnersListPage: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Ortaklık No</TableCell>
-              <TableCell>İsim/Unvan</TableCell>
-              <TableCell>Pay Adedi</TableCell>
-              <TableCell>Durum</TableCell>
-              <TableCell>İşlemler</TableCell>
+              <TableCell>#️⃣ Ortaklık No</TableCell>
+              <TableCell>👤 İsim/Unvan</TableCell>
+              <TableCell>💰 Pay Adedi</TableCell>
+              <TableCell>✅ Durum</TableCell>
+              <TableCell>⚙️ İşlemler</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredPartners.map((partner) => (
-              <TableRow key={partner.id}>
-                <TableCell>{partner.ortaklikNo}</TableCell>
-                <TableCell>{partner.isimUnvan}</TableCell>
-                <TableCell>{partner.payAdedi}</TableCell>
-                <TableCell>{partner.durum}</TableCell>
-                <TableCell>
-                  <Button variant="outlined" size="small" sx={{ mr: 1 }}>Düzenle</Button>
-                  <Button variant="outlined" size="small">Sil</Button>
+            {filteredPartners.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} sx={{ textAlign: 'center', py: 3 }}>
+                  <Typography variant="h6" color="text.secondary">
+                    😔 Hiç ortak bulunamadı. Filtreleri değiştirmeyi deneyin.
+                  </Typography>
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              filteredPartners.map((partner) => (
+                <TableRow key={partner.id}>
+                  <TableCell>{partner.ortaklikNo}</TableCell>
+                  <TableCell>{partner.isimUnvan}</TableCell>
+                  <TableCell>{partner.payAdedi}</TableCell>
+                  <TableCell>
+                    <Chip
+                      label={partner.durum}
+                      color={partner.durum === 'Halen Ortak' ? 'success' :
+                               partner.durum === 'Ortaklıktan Çıktı' ? 'error' :
+                               'info'}
+                      size="small"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Button component={Link} to={`/partners/${partner.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
+                      İncele
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
 
       {/* Gerçek Kişi Ortak Ekle Dialog */}
-      <Dialog open={openPersonDialog} onClose={handleClosePersonDialog}>
-        <DialogTitle>Gerçek Kişi Ortak Ekle</DialogTitle>
-        <DialogContent>
-          <TextField label="Ad" fullWidth margin="normal" />
-          <TextField label="Soyad" fullWidth margin="normal" />
-          <TextField label="TC Kimlik No" fullWidth margin="normal" />
-          <TextField label="Doğum Tarihi" fullWidth margin="normal" type="date" InputLabelProps={{ shrink: true }} />
-          <TextField label="Telefon" fullWidth margin="normal" />
-          <TextField label="Email" fullWidth margin="normal" type="email" />
-          <TextField label="Ortaklık No" fullWidth margin="normal" />
-          <TextField label="Pay Adedi" fullWidth margin="normal" type="number" />
-          <FormControl fullWidth margin="normal">
-            <InputLabel>Ortaklık Durumu</InputLabel>
-            <Select label="Ortaklık Durumu">
-              <MenuItem value="Halen Ortak">Halen Ortak</MenuItem>
-              {/* Add other statuses as needed */}
-            </Select>
-          </FormControl>
-          <TextField label="Ortaklık Başlangıç Tarihi" fullWidth margin="normal" type="date" InputLabelProps={{ shrink: true }} />
+      <Dialog open={openPersonDialog} onClose={handleClosePersonDialog} fullWidth maxWidth="sm">
+        <DialogTitle>➕ Gerçek Kişi Ortak Ekle</DialogTitle>
+        <DialogContent dividers>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Ad" fullWidth margin="normal" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Soyad" fullWidth margin="normal" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="TC Kimlik No" fullWidth margin="normal" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Doğum Tarihi" fullWidth margin="normal" type="date" InputLabelProps={{ shrink: true }} />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Telefon" fullWidth margin="normal" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Email" fullWidth margin="normal" type="email" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Ortaklık No" fullWidth margin="normal" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Pay Adedi" fullWidth margin="normal" type="number" />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Ortaklık Durumu</InputLabel>
+                <Select label="Ortaklık Durumu">
+                  <MenuItem value="Halen Ortak">Halen Ortak</MenuItem>
+                  <MenuItem value="Ortaklıktan Çıktı">Ortaklıktan Çıktı</MenuItem>
+                  <MenuItem value="Ortaklığı Devretti">Ortaklığı Devretti</MenuItem>
+                  <MenuItem value="Hatalı Giriş">Hatalı Giriş</MenuItem>
+                  <MenuItem value="Ortaklıktan İhraç Edildi">Ortaklıktan İhraç Edildi</MenuItem>
+                  <MenuItem value="Ortaklığı Devraldı">Ortaklığı Devraldı</MenuItem>
+                  <MenuItem value="Vefat Etti">Vefat Etti</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField label="Ortaklık Başlangıç Tarihi" fullWidth margin="normal" type="date" InputLabelProps={{ shrink: true }} />
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClosePersonDialog}>İptal</Button>
@@ -234,29 +304,54 @@ const PartnersListPage: React.FC = () => {
       </Dialog>
 
       {/* Tüzel Kişi Ortak Ekle Dialog */}
-      <Dialog open={openLegalEntityDialog} onClose={handleCloseLegalEntityDialog}>
-        <DialogTitle>Tüzel Kişi Ortak Ekle</DialogTitle>
-        <DialogContent>
-          <TextField label="Unvan" fullWidth margin="normal" />
-          <TextField label="Mersis No" fullWidth margin="normal" />
-          <TextField label="Vergi No" fullWidth margin="normal" />
-          <FormControl fullWidth margin="normal">
-            <InputLabel>Kuruluş Tipi</InputLabel>
-            <Select label="Kuruluş Tipi">
-              <MenuItem value="KOOPERATIF">KOOPERATİF</MenuItem>
-              {/* Add other types as needed */}
-            </Select>
-          </FormControl>
-          <TextField label="Ortaklık No" fullWidth margin="normal" />
-          <TextField label="Pay Adedi" fullWidth margin="normal" type="number" />
-          <FormControl fullWidth margin="normal">
-            <InputLabel>Ortaklık Durumu</InputLabel>
-            <Select label="Ortaklık Durumu">
-              <MenuItem value="Halen Ortak">Halen Ortak</MenuItem>
-              {/* Add other statuses as needed */}
-            </Select>
-          </FormControl>
-          <TextField label="Ortaklık Başlangıç Tarihi" fullWidth margin="normal" type="date" InputLabelProps={{ shrink: true }} />
+      <Dialog open={openLegalEntityDialog} onClose={handleCloseLegalEntityDialog} fullWidth maxWidth="sm">
+        <DialogTitle>➕ Tüzel Kişi Ortak Ekle</DialogTitle>
+        <DialogContent dividers>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Unvan" fullWidth margin="normal" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Mersis No" fullWidth margin="normal" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Vergi No" fullWidth margin="normal" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Kuruluş Tipi</InputLabel>
+                <Select label="Kuruluş Tipi">
+                  <MenuItem value="KOOPERATIF">KOOPERATİF</MenuItem>
+                  <MenuItem value="ŞİRKET">ŞİRKET</MenuItem>
+                  <MenuItem value="DERNEK">DERNEK</MenuItem>
+                  {/* Add other types as needed */}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Ortaklık No" fullWidth margin="normal" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Pay Adedi" fullWidth margin="normal" type="number" />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Ortaklık Durumu</InputLabel>
+                <Select label="Ortaklık Durumu">
+                  <MenuItem value="Halen Ortak">Halen Ortak</MenuItem>
+                  <MenuItem value="Ortaklıktan Çıktı">Ortaklıktan Çıktı</MenuItem>
+                  <MenuItem value="Ortaklığı Devretti">Ortaklığı Devretti</MenuItem>
+                  <MenuItem value="Hatalı Giriş">Hatalı Giriş</MenuItem>
+                  <MenuItem value="Ortaklıktan İhraç Edildi">Ortaklıktan İhraç Edildi</MenuItem>
+                  <MenuItem value="Ortaklığı Devraldı">Ortaklığı Devraldı</MenuItem>
+                  <MenuItem value="Vefat Etti">Vefat Etti</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField label="Ortaklık Başlangıç Tarihi" fullWidth margin="normal" type="date" InputLabelProps={{ shrink: true }} />
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseLegalEntityDialog}>İptal</Button>
