@@ -1,0 +1,9 @@
+basePath: /
+host: localhost:8082
+info:
+  contact: {}
+  description: This is the Cooperative Service API for the Koopfon application.
+  title: Cooperative Service API
+  version: "1.0"
+paths: {}
+swagger: "2.0"

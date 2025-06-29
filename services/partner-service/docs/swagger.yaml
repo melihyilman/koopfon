@@ -1,0 +1,9 @@
+basePath: /
+host: localhost:8083
+info:
+  contact: {}
+  description: This is the Partner Service API for the Koopfon application.
+  title: Partner Service API
+  version: "1.0"
+paths: {}
+swagger: "2.0"
