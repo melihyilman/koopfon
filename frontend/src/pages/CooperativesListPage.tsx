@@ -241,6 +241,14 @@ const CooperativesListPage: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {filteredCooperatives.length === 0 && (
+        <Box sx={{ mt: 4, textAlign: 'center' }}>
+          <Typography variant="h6" color="text.secondary">
+            😔 Hiç kooperatif bulunamadı. Filtreleri değiştirmeyi deneyin.
+          </Typography>
+        </Box>
+      )}
     </>
   );
 };
