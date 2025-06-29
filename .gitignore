@@ -39,3 +39,4 @@ db.txt
 
 # PDF files (if generated or temporary)
 *.pdf
+.vscode/settings.json
