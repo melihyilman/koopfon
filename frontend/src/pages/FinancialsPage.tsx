@@ -123,14 +123,18 @@ const FinancialsPage: React.FC = () => {
                   <ListItemIcon>
                     <DescriptionIcon />
                   </ListItemIcon>
-                  <ListItemText primary={doc.name} secondary={`${doc.type} - ${doc.date}`} sx={{ pr: '100px' }} /> {/* Added padding-right */}
+                  <ListItemText
+                    primary={<Typography variant="body1">{doc.name}</Typography>}
+                    secondary={<Typography variant="body2" color="text.secondary">{`${doc.type} - ${doc.date}`}</Typography>}
+                    sx={{ pr: '100px' }} // Added padding-right
+                  />
                 </ListItem>
               ))}
             </List>
             <Divider sx={{ my: 2 }} />
             <Box sx={{ mt: 2 }}>
               <Typography variant="subtitle1" gutterBottom>Yeni Belge Yükle</Typography>
-              <Stack direction="row" spacing={2} alignItems="center">
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
                 <Button
                   variant="contained"
                   component="label"

@@ -155,7 +155,7 @@ const GeneralMeetingDetailPage: React.FC = () => {
                   <ListItemText
                     primary={<Typography variant="h6">{index + 1}. {item.description}</Typography>}
                     secondary={
-                      <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
+                      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 1 }}>
                         <Chip
                           icon={<CheckCircleOutlineIcon />}
                           label={`Onay: ${item.approvedCount}`}

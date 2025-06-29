@@ -278,7 +278,7 @@ const CooperativeDetailPage: React.FC = () => {
 
       <TabPanel value={value} index={1}>
         <Typography variant="h6" gutterBottom>Ortaklar</Typography>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -313,7 +313,7 @@ const CooperativeDetailPage: React.FC = () => {
       <TabPanel value={value} index={2}>
         <Typography variant="h6" gutterBottom>Organlar</Typography>
         <Typography variant="subtitle1" mt={2}>Yönetim Kurulu Üyeleri</Typography>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -339,7 +339,7 @@ const CooperativeDetailPage: React.FC = () => {
         </TableContainer>
 
         <Typography variant="subtitle1" mt={4}>Denetim Kurulu Üyeleri</Typography>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -439,7 +439,7 @@ const CooperativeDetailPage: React.FC = () => {
 
       <TabPanel value={value} index={5}>
         <Typography variant="h6" gutterBottom>Genel Kurul</Typography>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>

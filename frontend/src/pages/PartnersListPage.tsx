@@ -144,7 +144,7 @@ const PartnersListPage: React.FC = () => {
       <Collapse in={showAdvancedFilters}>
         <Box sx={{ p: 2, border: '1px solid #ccc', borderRadius: '4px', mb: 2 }}>
           <Typography variant="h6" gutterBottom>Gelişmiş Filtreler</Typography>
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2 }}>
+          <Grid container spacing={2}>
             <TextField
               label="Ortaklık No"
               name="ortaklikNo"
@@ -202,7 +202,7 @@ const PartnersListPage: React.FC = () => {
         </Box>
       </Collapse>
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -238,9 +238,11 @@ const PartnersListPage: React.FC = () => {
                     />
                   </TableCell>
                   <TableCell>
-                    <Button component={Link} to={`/partners/${partner.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
-                      İncele
-                    </Button>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
+                      <Button component={Link} to={`/partners/${partner.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
+                        İncele
+                      </Button>
+                    </Stack>
                   </TableCell>
                 </TableRow>
               ))
