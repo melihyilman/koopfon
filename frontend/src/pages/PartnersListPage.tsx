@@ -198,7 +198,7 @@ const PartnersListPage: React.FC = () => {
                 <MenuItem value="Tüzel">Tüzel Kişi</MenuItem>
               </Select>
             </FormControl>
-          </Box>
+            </Grid>
         </Box>
       </Collapse>
 

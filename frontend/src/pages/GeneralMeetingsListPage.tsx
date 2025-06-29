@@ -154,7 +154,7 @@ const GeneralMeetingsListPage: React.FC = () => {
               onChange={handleFilterChange}
               size="small"
             />
-          </Box>
+          </Grid>
         </Box>
       </Collapse>
 
