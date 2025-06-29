@@ -1,273 +1,180 @@
 import React, { useState } from 'react';
-import MainLayout from '../layout/MainLayout';
 import {
-  Typography, Box, Paper, Tabs, Tab, TextField, Grid, Button, Collapse, Select, MenuItem, FormControl, InputLabel
+  Typography, Box, Paper, Grid, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  Stack, Chip, List, ListItem, ListItemText, ListItemIcon, Divider
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import MoneyOffIcon from '@mui/icons-material/MoneyOff';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import DescriptionIcon from '@mui/icons-material/Description';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+// Mock Data
+const financialSummary = {
+  totalRevenue: 1250000,
+  totalExpenses: 750000,
+  netProfit: 500000,
+  lastUpdate: '28.06.2025',
+};
 
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+const incomeExpenseData = [
+  { month: 'Ocak', gelir: 100000, gider: 60000 },
+  { month: 'Şubat', gelir: 110000, gider: 65000 },
+  { month: 'Mart', gelir: 120000, gider: 70000 },
+  { month: 'Nisan', gelir: 130000, gider: 75000 },
+  { month: 'Mayıs', gelir: 140000, gider: 80000 },
+  { month: 'Haziran', gelir: 150000, gider: 85000 },
+];
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`financial-tabpanel-${index}`}
-      aria-labelledby={`financial-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `financial-tab-${index}`,
-    'aria-controls': `financial-tabpanel-${index}`,
-  };
-}
+const financialDocuments = [
+  { id: 1, name: '2024 Yılı Bilanço', type: 'Bilanço', date: '31.12.2024', file: 'bilanco_2024.pdf' },
+  { id: 2, name: '2024 Yılı Gelir Tablosu', type: 'Gelir Tablosu', date: '31.12.2024', file: 'gelir_tablosu_2024.pdf' },
+  { id: 3, name: '2025 Yılı Bütçe Taslağı', type: 'Bütçe', date: '15.01.2025', file: 'butce_taslagi_2025.pdf' },
+];
 
 const FinancialsPage: React.FC = () => {
-  const [value, setValue] = useState(0);
-  const [showFilters, setShowFilters] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setSelectedFile(event.target.files[0]);
+    }
   };
 
-  const handleToggleFilters = () => {
-    setShowFilters(prev => !prev);
+  const handleUpload = () => {
+    if (selectedFile) {
+      alert(`Dosya yüklendi: ${selectedFile.name}`);
+      // TODO: Dosya yükleme API çağrısı
+      setSelectedFile(null);
+    } else {
+      alert('Lütfen yüklenecek bir dosya seçin.');
+    }
   };
-
-  // Mock data for financial summary
-  const financialSummary = {
-    hesapDonemiBaslangic: '01/01/2021',
-    hesapDonemiBitis: '31/12/2021',
-    genelKurulOdenek: 100,
-    sigortaPrimi: 100,
-    personelSayisi: 100,
-  };
-
-  // Mock data for real estate holdings
-  const realEstateHoldings = [
-    {
-      id: '1',
-      propertyType: 'TARLA',
-      address: 'Güzelhisar, İstiklal Cad. No:4, 09100 Efeler/Aydın',
-      city: 'AYDIN',
-      district: 'AYDIN',
-      sheetNo: '100/01',
-      parcelNo: '120/02',
-      areaSqm: 1000,
-      estimatedValue: 1000000,
-    },
-  ];
-
-  // Mock data for affiliate participations
-  const affiliateParticipations = [
-    {
-      id: '1',
-      affiliateName: 'TÜRK EKONOMİ BANKASI ANONİM ŞİRKETİ',
-      mersisNo: '0876004342000105',
-      taxId: '8760043420',
-      shareRatio: 0.05,
-      capitalAmount: 10000000,
-    },
-  ];
-
-  // Mock data for documents
-  const documents = [
-    { id: '1', type: 'YÖNETİM KURULU FAALİYET RAPORU', description: '' },
-    { id: '2', type: 'DENETÇİ RAPORU', description: '' },
-    { id: '3', type: 'BİLANÇO', description: '' },
-    { id: '4', type: 'GELİR-GİDER TABLOSU', description: '' },
-  ];
 
   return (
-    <MainLayout>
+    <Box>
       <Typography variant="h4" gutterBottom>
-        İdari/Mali Durum
+        💰 Finansal Durum
       </Typography>
 
-      <Box sx={{ mb: 2 }}>
-        <Button variant="outlined" onClick={handleToggleFilters} startIcon={showFilters ? <ExpandLessIcon /> : <ExpandMoreIcon />}>
-          {showFilters ? 'Gelişmiş filtreleri gizle' : 'Gelişmiş filtreleri göster'}
-        </Button>
-        <Button variant="outlined" sx={{ ml: 1 }}>
-          Temizle
-        </Button>
-      </Box>
-
-      <Collapse in={showFilters}>
-        <Box sx={{ p: 2, border: '1px solid #ccc', borderRadius: '4px', mb: 2 }}>
-          <Typography variant="h6" gutterBottom>Filtreler</Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField label="Hesap Dönemi Başlangıç Tarihi" fullWidth size="small" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField label="Hesap Dönemi Bitiş Tarihi" fullWidth size="small" />
-            </Grid>
-          </Grid>
-        </Box>
-      </Collapse>
-
-      <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="financial tabs" variant="scrollable" scrollButtons="auto">
-          <Tab label="Finansal Bilgiler" {...a11yProps(0)} />
-          <Tab label="Gayrimenkul" {...a11yProps(1)} />
-          <Tab label="Raporlar" {...a11yProps(2)} />
-          <Tab label="İştirakler" {...a11yProps(3)} />
-        </Tabs>
-      </Box>
-
-      <TabPanel value={value} index={0}>
-        <Typography variant="h6" gutterBottom>Finansal Bilgiler</Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
-            <TextField label="Hesap Dönemi Başlangıç Tarihi" value={financialSummary.hesapDonemiBaslangic} fullWidth margin="normal" InputProps={{ readOnly: true }} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField label="Hesap Dönemi Bitiş Tarihi" value={financialSummary.hesapDonemiBitis} fullWidth margin="normal" InputProps={{ readOnly: true }} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField label="Genel Kurulca Bir Ortak İçin Belirlenen Yıllık Ödenti Toplamı" value={financialSummary.genelKurulOdenek} fullWidth margin="normal" InputProps={{ readOnly: true }} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField label="Ödenen Yıllık Sigorta Primi Toplamı" value={financialSummary.sigortaPrimi} fullWidth margin="normal" InputProps={{ readOnly: true }} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField label="İstihdam Edilen Personel Sayısı" value={financialSummary.personelSayisi} fullWidth margin="normal" InputProps={{ readOnly: true }} />
-          </Grid>
+      <Grid container spacing={3} mb={4}>
+        {/* Financial Summary Cards */}
+        <Grid item xs={12} sm={4}>
+          <Paper sx={{ p: 3, textAlign: 'center' }}>
+            <AttachMoneyIcon color="success" sx={{ fontSize: 40 }} />
+            <Typography variant="h6" color="textSecondary">Toplam Gelir</Typography>
+            <Typography variant="h3" color="success">{financialSummary.totalRevenue.toLocaleString('tr-TR')} TL</Typography>
+          </Paper>
         </Grid>
-        <Box mt={3}>
-          <Button variant="contained" color="primary">Finansal Bilgi Ekle</Button>
-        </Box>
-      </TabPanel>
+        <Grid item xs={12} sm={4}>
+          <Paper sx={{ p: 3, textAlign: 'center' }}>
+            <MoneyOffIcon color="error" sx={{ fontSize: 40 }} />
+            <Typography variant="h6" color="textSecondary">Toplam Gider</Typography>
+            <Typography variant="h3" color="error">{financialSummary.totalExpenses.toLocaleString('tr-TR')} TL</Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Paper sx={{ p: 3, textAlign: 'center' }}>
+            <AccountBalanceWalletIcon color="primary" sx={{ fontSize: 40 }} />
+            <Typography variant="h6" color="textSecondary">Net Kar</Typography>
+            <Typography variant="h3" color="primary">{financialSummary.netProfit.toLocaleString('tr-TR')} TL</Typography>
+          </Paper>
+        </Grid>
+      </Grid>
 
-      <TabPanel value={value} index={1}>
-        <Typography variant="h6" gutterBottom>Gayrimenkul Bilgileri</Typography>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Gayrimenkul Türü</TableCell>
-                <TableCell>Adres</TableCell>
-                <TableCell>Şehir</TableCell>
-                <TableCell>İlçe</TableCell>
-                <TableCell>Pafta No</TableCell>
-                <TableCell>Parsel No</TableCell>
-                <TableCell>Yüz Ölçümü (m²)</TableCell>
-                <TableCell>Tahmini Değer</TableCell>
-                <TableCell>İşlemler</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {realEstateHoldings.map((holding) => (
-                <TableRow key={holding.id}>
-                  <TableCell>{holding.propertyType}</TableCell>
-                  <TableCell>{holding.address}</TableCell>
-                  <TableCell>{holding.city}</TableCell>
-                  <TableCell>{holding.district}</TableCell>
-                  <TableCell>{holding.sheetNo}</TableCell>
-                  <TableCell>{holding.parcelNo}</TableCell>
-                  <TableCell>{holding.areaSqm}</TableCell>
-                  <TableCell>{holding.estimatedValue}</TableCell>
-                  <TableCell>
-                    <Button variant="outlined" size="small" sx={{ mr: 1 }}>Düzenle</Button>
-                    <Button variant="outlined" size="small">Sil</Button>
-                  </TableCell>
-                </TableRow>
+      <Grid container spacing={3}>
+        {/* Income/Expense Chart */}
+        <Grid item xs={12}>
+          <Paper sx={{ p: 3 }}>
+            <Typography variant="h6" gutterBottom>Aylık Gelir ve Gider Grafiği 📈</Typography>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={incomeExpenseData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="gelir" stroke="#4caf50" name="Gelir" />
+                <Line type="monotone" dataKey="gider" stroke="#f44336" name="Gider" />
+              </LineChart>
+            </ResponsiveContainer>
+          </Paper>
+        </Grid>
+
+        {/* Financial Documents */}
+        <Grid item xs={12} md={6}>
+          <Paper sx={{ p: 3 }}>
+            <Typography variant="h6" gutterBottom>Finansal Belgeler 📄</Typography>
+            <List>
+              {financialDocuments.map((doc) => (
+                <ListItem
+                  key={doc.id}
+                  secondaryAction={
+                    <Button variant="outlined" size="small" startIcon={<VisibilityIcon />}>
+                      Görüntüle
+                    </Button>
+                  }
+                >
+                  <ListItemIcon>
+                    <DescriptionIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={doc.name} secondary={`${doc.type} - ${doc.date}`} sx={{ pr: '100px' }} /> {/* Added padding-right */}
+                </ListItem>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Box mt={3}>
-          <Button variant="contained" color="primary">Gayrimenkul Ekle</Button>
-        </Box>
-      </TabPanel>
+            </List>
+            <Divider sx={{ my: 2 }} />
+            <Box sx={{ mt: 2 }}>
+              <Typography variant="subtitle1" gutterBottom>Yeni Belge Yükle</Typography>
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Button
+                  variant="contained"
+                  component="label"
+                  startIcon={<UploadFileIcon />}>
+                  Dosya Seç
+                  <input type="file" hidden onChange={handleFileChange} />
+                </Button>
+                {selectedFile && (
+                  <Typography variant="body2">{selectedFile.name}</Typography>
+                )}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleUpload}
+                  disabled={!selectedFile}>
+                  Yükle
+                </Button>
+              </Stack>
+            </Box>
+          </Paper>
+        </Grid>
 
-      <TabPanel value={value} index={2}>
-        <Typography variant="h6" gutterBottom>Raporlar</Typography>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Belge Türü</TableCell>
-                <TableCell>İşlemler</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {documents.map((doc) => (
-                <TableRow key={doc.id}>
-                  <TableCell>{doc.type}</TableCell>
-                  <TableCell>
-                    <Button variant="outlined" size="small" sx={{ mr: 1 }}>Detay</Button>
-                    <Button variant="outlined" size="small">Sil</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Box mt={3}>
-          <Button variant="contained" color="primary">Rapor Ekle</Button>
-        </Box>
-      </TabPanel>
-
-      <TabPanel value={value} index={3}>
-        <Typography variant="h6" gutterBottom>İştirakler</Typography>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Ünvanı</TableCell>
-                <TableCell>Mersis Numarası</TableCell>
-                <TableCell>Vergi Kimlik No</TableCell>
-                <TableCell>İşlemler</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {affiliateParticipations.map((affiliate) => (
-                <TableRow key={affiliate.id}>
-                  <TableCell>{affiliate.affiliateName}</TableCell>
-                  <TableCell>{affiliate.mersisNo}</TableCell>
-                  <TableCell>{affiliate.taxId}</TableCell>
-                  <TableCell>
-                    <Button variant="outlined" size="small" sx={{ mr: 1 }}>Düzenle</Button>
-                    <Button variant="outlined" size="small">Sil</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Box mt={3}>
-          <Button variant="contained" color="primary">İştirak Ekle</Button>
-        </Box>
-      </TabPanel>
-
-      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button variant="outlined" color="secondary" sx={{ mr: 2 }}>
-          Geri
-        </Button>
-        <Button variant="contained" color="primary">
-          Kaydet ve Bitir
-        </Button>
-      </Box>
-    </MainLayout>
+        {/* Recent Financial Activities/Updates */}
+        <Grid item xs={12} md={6}>
+          <Paper sx={{ p: 3 }}>
+            <Typography variant="h6" gutterBottom>Son Finansal Güncellemeler 🔔</Typography>
+            <List>
+              <ListItem>
+                <ListItemIcon><TrendingUpIcon color="success" /></ListItemIcon>
+                <ListItemText primary="Q1 2025 Gelirleri güncellendi." secondary="25.06.2025" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon><TrendingDownIcon color="error" /></ListItemIcon>
+                <ListItemText primary="Yeni gider kalemi eklendi: Ofis malzemeleri." secondary="20.06.2025" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon><CalendarTodayIcon color="info" /></ListItemIcon>
+                <ListItemText primary="Vergi beyannamesi son tarihi yaklaşıyor." secondary="15.06.2025" />
+              </ListItem>
+            </List>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

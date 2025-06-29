@@ -34,9 +34,8 @@ yarn-error.log*
 *.bak
 *.swo
 
-# Database files
+# Project Specific Files to Ignore
 db.txt
-
-# PDF files (if generated or temporary)
+kullanim_klavuz.pdf
 *.pdf
 .vscode/settings.json
