@@ -120,7 +120,7 @@ const DocumentManagementPage: React.FC = () => {
           }}
           sx={{ mb: 2 }}
         />
-        <TableContainer>
+        <TableContainer sx={{ overflowX: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -155,7 +155,7 @@ const DocumentManagementPage: React.FC = () => {
                     <TableCell>{doc.uploadDate}</TableCell>
                     <TableCell>{doc.size}</TableCell>
                     <TableCell>
-                      <Stack direction="row" spacing={1}>
+                      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
                         <Button variant="outlined" size="small" startIcon={<VisibilityIcon />} href={doc.fileUrl} target="_blank">
                           Görüntüle
                         </Button>

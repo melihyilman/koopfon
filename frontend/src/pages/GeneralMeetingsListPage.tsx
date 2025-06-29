@@ -131,7 +131,7 @@ const GeneralMeetingsListPage: React.FC = () => {
       <Collapse in={showFilters}>
         <Box sx={{ p: 2, border: '1px solid #ccc', borderRadius: '4px', mb: 2 }}>
           <Typography variant="h6" gutterBottom>Filtreler</Typography>
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2 }}>
+          <Grid container spacing={2}>
             <TextField
               label="Toplantı Başlığı"
               name="title"
@@ -158,7 +158,7 @@ const GeneralMeetingsListPage: React.FC = () => {
         </Box>
       </Collapse>
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -185,7 +185,7 @@ const GeneralMeetingsListPage: React.FC = () => {
                   <TableCell>{meeting.date}</TableCell>
                   <TableCell>{meeting.location}</TableCell>
                   <TableCell>
-                    <Stack spacing={0.5}>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={0.5}>
                       {meeting.agendaItems.map((item, index) => (
                         <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                           <SubjectIcon fontSize="small" color="action" />

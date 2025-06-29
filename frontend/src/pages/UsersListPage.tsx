@@ -143,7 +143,7 @@ const UsersListPage: React.FC = () => {
         </Box>
       </Collapse>
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -181,7 +181,7 @@ const UsersListPage: React.FC = () => {
                   </TableCell>
                   <TableCell>{user.lastLogin}</TableCell>
                   <TableCell>
-                    <Stack direction="row" spacing={1}>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
                       <Button component={Link} to={`/users/${user.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
                         Düzenle
                       </Button>
