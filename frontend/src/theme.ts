@@ -3,9 +3,9 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2196f3', // Mavi tonu, daha canlı
-      light: '#64b5f6',
-      dark: '#1976d2',
+      main: '#175844', // Koopfon Primary
+      light: '#81C784',
+      dark: '#388E3C',
       contrastText: '#fff',
     },
     secondary: {

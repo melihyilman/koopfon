@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
@@ -13,32 +14,41 @@ import GeneralMeetingsListPage from './pages/GeneralMeetingsListPage';
 import GeneralMeetingDetailPage from './pages/GeneralMeetingDetailPage';
 import FinancialsPage from './pages/FinancialsPage';
 import DocumentManagementPage from './pages/DocumentManagementPage';
+import LandingPage from "./pages/LandingPage";
 
 // Örnek oturum kontrolü (gerçek uygulamada authSlice veya context ile yapılmalı)
 const isAuthenticated = true;
 
+const AdminRoutes: React.FC = () => (
+    <MainLayout>
+        <Routes>
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="cooperatives" element={<CooperativesListPage />} />
+            <Route path="cooperatives/:id" element={<CooperativeDetailPage />} />
+            <Route path="partners" element={<PartnersListPage />} />
+            <Route path="partners/:id" element={<PartnerDetailPage />} />
+            <Route path="users" element={<UsersListPage />} />
+            <Route path="users/:id" element={<UserDetailPage />} />
+            <Route path="general-meetings" element={<GeneralMeetingsListPage />} />
+            <Route path="general-meetings/:id" element={<GeneralMeetingDetailPage />} />
+            <Route path="financials" element={<FinancialsPage />} />
+            <Route path="documents" element={<DocumentManagementPage />} />
+            <Route path="*" element={<Navigate to="dashboard" />} />
+        </Routes>
+    </MainLayout>
+);
+
 const App: React.FC = () => (
   <Router>
     <Routes>
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       {isAuthenticated ? (
-        <>
-          <Route path="/dashboard" element={<MainLayout><DashboardPage /></MainLayout>} />
-          <Route path="/cooperatives" element={<MainLayout><CooperativesListPage /></MainLayout>} />
-          <Route path="/cooperatives/:id" element={<MainLayout><CooperativeDetailPage /></MainLayout>} />
-          <Route path="/partners" element={<MainLayout><PartnersListPage /></MainLayout>} />
-          <Route path="/partners/:id" element={<MainLayout><PartnerDetailPage /></MainLayout>} />
-          <Route path="/users" element={<MainLayout><UsersListPage /></MainLayout>} />
-          <Route path="/users/:id" element={<MainLayout><UserDetailPage /></MainLayout>} />
-          <Route path="/general-meetings" element={<MainLayout><GeneralMeetingsListPage /></MainLayout>} />
-          <Route path="/general-meetings/:id" element={<MainLayout><GeneralMeetingDetailPage /></MainLayout>} />
-          <Route path="/financials" element={<MainLayout><FinancialsPage /></MainLayout>} />
-          <Route path="/documents" element={<MainLayout><DocumentManagementPage /></MainLayout>} />
-        </>
+        <Route path="/admin/*" element={<AdminRoutes />} />
       ) : (
         <Route path="*" element={<Navigate to="/login" />} />
       )}
-      <Route path="*" element={<Navigate to="/dashboard" />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   </Router>
 );
