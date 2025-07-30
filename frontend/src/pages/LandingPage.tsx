@@ -186,14 +186,14 @@ function LandingPage(): JSX.Element {
                 <h1 className="display-4 fw-bold koopfon-secondary mb-3 typewriter-text">
                   <Typewriter
                     options={{
-                      strings: ['Fonlarınızı', 'Kooperatiflerinizi', 'Arsalarınızı', 'Yatırımlarınızı'],
+                      strings: ['Konut', 'Tarım', 'İşletme','Üretim','Enerji'],
                       autoStart: true,
                       loop: true,
                     }}
                   />
                 </h1>
                 <h1 className="display-4 fw-bold koopfon-primary">
-                  güvenle değerlendirin
+                  Kooperatifi yatırımlarınızı güvenle değerlendirin
                 </h1>
               </div>
               
@@ -308,7 +308,7 @@ function LandingPage(): JSX.Element {
             </div>
           </div>
         </div>
-        <a href="#features-section" className="scroll-down-indicator"></a>
+        
       </section>
 
       {/* Contact Section */}
@@ -321,7 +321,7 @@ function LandingPage(): JSX.Element {
             </div>
           </div>
           
-          <div className="row">
+          <div className="row align-items-center">
             {/* Left Side - Contact Form */}
             <div className="col-lg-6 mb-5 mb-lg-0">
               <p className="text-muted mb-4">
@@ -392,12 +392,12 @@ function LandingPage(): JSX.Element {
             {/* Right Side - Description */}
             <div className="col-lg-6">
               <div className="contact-info">
-                <h3 className="h4 fw-bold text-dark mb-4">
+                <h3>
                   Kooperatifçilik konusunda sizlere nasıl yardımcı olabileceğimizle ilgili düşüncelerinizi almak isteriz.
                 </h3>
-                <p className="text-muted">
+                {/* <p className="text-muted">
                   Kooperatifçilik alanında uzman kadromuz ile birlikte, yatırımlarınızı güvenle değerlendirmeniz için size en uygun çözümleri sunuyoruz. Sorularınız için bizimle iletişime geçebilirsiniz.
-                </p>
+                </p> */}
               </div>
             </div>
           </div>

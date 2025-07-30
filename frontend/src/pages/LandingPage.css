@@ -58,7 +58,7 @@ p, .lead {
 .logo-container {
      /* transform: translateY(-5%);  */
     /* margin-bottom: -60px; */
-    margin-top:3rem; 
+    margin-top:5rem; 
 }
 
 .logo-text {
@@ -107,6 +107,8 @@ p, .lead {
   border-radius: 0.5rem;
   transition: all 0.3s ease;
   padding: 0.75rem 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .btn-koopfon-secondary:hover {
@@ -271,7 +273,7 @@ p, .lead {
 
 .contact-title-container {
   position: absolute;
-  top: 0;
+  top: -1%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -290,12 +292,16 @@ p, .lead {
 
 .contact-info {
   padding-left: 2rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .contact-info h3 {
   font-family: 'Roboto', sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--koopfon-text-dark);
+  font-size: 36px;
 }
 
 .contact-info p {
@@ -493,6 +499,10 @@ p, .lead {
     padding-left: 0;
     margin-top: 2rem;
   }
+
+  .contact-info h3 {
+    font-size: 24px;
+  }
   
   .icon-circle {
     width: 100px;
@@ -518,9 +528,8 @@ p, .lead {
     padding: 1rem 0;
   }
   
-  .features-section,
   .contact-section {
-    padding: 3rem 0;
+    padding-top: 8rem;
   }
   
   .section-title-badge,
