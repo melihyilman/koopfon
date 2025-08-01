@@ -78,7 +78,7 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 		formattedDate = submissionTime.In(loc).Format("02 Ocak 2006, 15:04:05 (MST)")
 	}
 
-	// Extract details from the plain text body
+	// Safely extract details from the plain text body
 	bodyData := make(map[string]string)
 	lines := strings.Split(req.Body, "\n")
 	for _, line := range lines {
@@ -89,7 +89,16 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	bodyData["Mesaj"] = strings.Split(req.Body, "Mesaj:")[1]
+
+	// Safely get the message part
+	messageParts := strings.Split(req.Body, "Mesaj:")
+	message := ""
+	if len(messageParts) > 1 {
+		message = strings.TrimSpace(messageParts[1])
+	}
+	bodyData["Mesaj"] = message
+
+	log.Printf("Parsed body data for HTML email: %+v", bodyData)
 
 	htmlBody := fmt.Sprintf(`
 <!DOCTYPE html>
