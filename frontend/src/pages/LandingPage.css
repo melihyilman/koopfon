@@ -464,7 +464,7 @@ p, .lead {
 }
 
 .typewriter-text .Typewriter__wrapper {
-  font-weight: 400; /* Or any other value for thinner text */
+  font-weight: 700; /* Or any other value for thinner text */
 }
 
 .typewriter-wrapper {

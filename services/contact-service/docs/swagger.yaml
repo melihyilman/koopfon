@@ -1,0 +1,57 @@
+basePath: /
+definitions:
+  handlers.EmailRequest:
+    properties:
+      body:
+        type: string
+      subject:
+        type: string
+      to:
+        items:
+          type: string
+        type: array
+    type: object
+host: localhost:8081
+info:
+  contact:
+    email: soberkoder@swagger.io
+    name: API Support
+  description: This is a simple contact service.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Contact Service API
+  version: "1.0"
+paths:
+  /contact:
+    post:
+      consumes:
+      - application/json
+      description: Send an email using the contact service
+      parameters:
+      - description: Email Request
+        in: body
+        name: email
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.EmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Send an email
+      tags:
+      - contact
+swagger: "2.0"

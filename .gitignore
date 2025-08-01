@@ -39,3 +39,4 @@ db.txt
 kullanim_klavuz.pdf
 *.pdf
 .vscode/settings.json
+/services/contact-service/config.json

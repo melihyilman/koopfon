@@ -200,8 +200,8 @@ function LandingPage(): JSX.Element {
                         ],
                         autoStart: true,
                         loop: true,
-                        delay: 45,
-                        deleteSpeed: 25,
+                        delay: 55,
+                        deleteSpeed: 35,
                       }}
                     />
                   </div>
