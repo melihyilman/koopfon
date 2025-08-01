@@ -1,9 +1,6 @@
 package handlers
 
 import (
-	"crypto/rand"
-	"crypto/tls"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"html"
@@ -37,40 +34,28 @@ type EmailRequest struct {
 func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	var req EmailRequest
 	log.Println("Received request to send email")
-	err := json.NewDecoder(r.Body).Decode(&req)
-	if err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		log.Printf("Error decoding request body: %v", err)
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
 		return
 	}
 
-	// Get credentials from environment variables
+	// --- Get credentials and configuration from environment variables ---
 	from := os.Getenv("SMTP_FROM")
 	password := os.Getenv("SMTP_PASSWORD")
-	if from == "" || password == "" {
-		log.Println("Error: SMTP_FROM and SMTP_PASSWORD environment variables must be set")
-		http.Error(w, "Email server not configured", http.StatusInternalServerError)
+	smtpHost := os.Getenv("SMTP_HOST")
+	smtpPort := os.Getenv("SMTP_PORT")
+
+	if from == "" || password == "" || smtpHost == "" || smtpPort == "" {
+		log.Println("Error: SMTP configuration is incomplete. All SMTP environment variables (HOST, PORT, FROM, PASSWORD) must be set.")
+		http.Error(w, "Server email configuration is incomplete", http.StatusInternalServerError)
 		return
 	}
 
 	// Static recipient list
 	recipients := []string{"melihyilman@gmail.com", "1koopfon@gmail.com"}
 
-	smtpHost := "mail.koopfon.com"
-	smtpPort := "587"
-
-	// Create a unique boundary for the multipart message
-	b := make([]byte, 16)
-	_, err = rand.Read(b)
-	if err != nil {
-		log.Printf("Error creating boundary: %v", err)
-		http.Error(w, "Error creating boundary", http.StatusInternalServerError)
-		return
-	}
-	boundary := base64.URLEncoding.EncodeToString(b)
-
 	// --- Create HTML Email Body ---
-	// Parse submission date
 	submissionTime, err := time.Parse(time.RFC3339, req.SubmissionDate)
 	formattedDate := "Bilinmiyor"
 	if err == nil {
@@ -78,7 +63,6 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 		formattedDate = submissionTime.In(loc).Format("02 Ocak 2006, 15:04:05 (MST)")
 	}
 
-	// Safely extract details from the plain text body
 	bodyData := make(map[string]string)
 	lines := strings.Split(req.Body, "\n")
 	for _, line := range lines {
@@ -89,8 +73,6 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-
-	// Safely get the message part
 	messageParts := strings.Split(req.Body, "Mesaj:")
 	message := ""
 	if len(messageParts) > 1 {
@@ -98,38 +80,8 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	bodyData["Mesaj"] = message
 
-	log.Printf("Parsed body data for HTML email: %+v", bodyData)
-
 	htmlBody := fmt.Sprintf(`
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-  body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
-  .container { background-color: #ffffff; border-radius: 8px; padding: 20px; max-width: 600px; margin: auto; border: 1px solid #ddd; }
-  .header { font-size: 24px; color: #175844; margin-bottom: 20px; text-align: center; }
-  .content-table { width: 100%%; border-collapse: collapse; }
-  .content-table th, .content-table td { padding: 12px 15px; border: 1px solid #ddd; text-align: left; }
-  .content-table th { background-color: #f8f8f8; color: #333; width: 150px; }
-  .message-block { background-color: #fdfdfd; border-left: 4px solid #175844; padding: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word; }
-  .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #888; }
-</style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">Koopfon İletişim Formu</div>
-    <table class="content-table">
-      <tr><th>Ad Soyad</th><td>%s</td></tr>
-      <tr><th>E-posta</th><td><a href="mailto:%s">%s</a></td></tr>
-      <tr><th>Telefon</th><td>%s</td></tr>
-      <tr><th>Talep Tarihi</th><td>%s</td></tr>
-    </table>
-    <div class="message-block"><strong>Mesaj:</strong><br>%s</div>
-    <div class="footer">Bu e-posta, Koopfon web sitesi üzerinden gönderilmiştir.</div>
-  </div>
-</body>
-</html>
-`,
+<!DOCTYPE html><html><head><style>body{font-family:Arial,sans-serif;margin:0;padding:20px;background-color:#f4f4f4;}.container{background-color:#ffffff;border-radius:8px;padding:20px;max-width:600px;margin:auto;border:1px solid #ddd;}.header{font-size:24px;color:#175844;margin-bottom:20px;text-align:center;}.content-table{width:100%%;border-collapse:collapse;}.content-table th,.content-table td{padding:12px 15px;border:1px solid #ddd;text-align:left;}.content-table th{background-color:#f8f8f8;color:#333;width:150px;}.message-block{background-color:#fdfdfd;border-left:4px solid #175844;padding:15px;margin-top:15px;white-space:pre-wrap;word-wrap:break-word;}.footer{text-align:center;margin-top:20px;font-size:12px;color:#888;}</style></head><body><div class="container"><div class="header">Koopfon İletişim Formu</div><table class="content-table"><tr><th>Ad Soyad</th><td>%s</td></tr><tr><th>E-posta</th><td><a href="mailto:%s">%s</a></td></tr><tr><th>Telefon</th><td>%s</td></tr><tr><th>Talep Tarihi</th><td>%s</td></tr></table><div class="message-block"><strong>Mesaj:</strong><br>%s</div><div class="footer">Bu e-posta, Koopfon web sitesi üzerinden gönderilmiştir.</div></div></body></html>`,
 		html.EscapeString(bodyData["Ad Soyad"]),
 		html.EscapeString(bodyData["E-posta"]),
 		html.EscapeString(bodyData["E-posta"]),
@@ -138,108 +90,33 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 		html.EscapeString(bodyData["Mesaj"]),
 	)
 
-	// --- Construct the email headers ---
+	// --- Construct the email message with headers ---
 	headers := make(map[string]string)
 	headers["From"] = from
 	headers["To"] = strings.Join(recipients, ", ")
 	headers["Subject"] = req.Subject
 	headers["Reply-To"] = req.ReplyTo
 	headers["MIME-Version"] = "1.0"
-	headers["Content-Type"] = "multipart/alternative; boundary=" + boundary
-	headers["Date"] = time.Now().Format(time.RFC1123Z)
-	messageID := fmt.Sprintf("<%d.%s@%s>", time.Now().UnixNano(), boundary, "koopfon.com")
-	headers["Message-ID"] = messageID
+	headers["Content-Type"] = "text/html; charset=utf-8"
 
-	// Construct the email body
-	var msg string
+	var msg strings.Builder
 	for k, v := range headers {
-		msg += fmt.Sprintf("%s: %s\r\n", k, v)
+		msg.WriteString(fmt.Sprintf("%s: %s\r\n", k, v))
 	}
-	msg += "\r\n"
+	msg.WriteString("\r\n")
+	msg.WriteString(htmlBody)
 
-	// Plain text part
-	msg += "--" + boundary + "\r\n"
-	msg += "Content-Type: text/plain; charset=utf-8\r\n"
-	msg += "\r\n"
-	msg += req.Body + "\r\n"
-
-	// HTML part
-	msg += "--" + boundary + "\r\n"
-	msg += "Content-Type: text/html; charset=utf-8\r\n"
-	msg += "\r\n"
-	msg += htmlBody + "\r\n"
-
-	// End boundary
-	msg += "--" + boundary + "--\r\n"
-
-	log.Println("Authenticating with SMTP server...")
+	// --- Send the email ---
 	auth := smtp.PlainAuth("", from, password, smtpHost)
+	addr := smtpHost + ":" + smtpPort
 
-	// TLS configuration
-	tlsconfig := &tls.Config{
-		InsecureSkipVerify: true,
-		ServerName:         smtpHost,
-	}
-
-	log.Println("Connecting to SMTP server...")
-	c, err := smtp.Dial(smtpHost + ":" + smtpPort)
+	log.Println("Attempting to send email via SMTP...")
+	err = smtp.SendMail(addr, auth, from, recipients, []byte(msg.String()))
 	if err != nil {
-		log.Printf("Error connecting to SMTP server: %v", err)
-		http.Error(w, "Error connecting to SMTP server", http.StatusInternalServerError)
+		log.Printf("Error sending email: %v", err)
+		http.Error(w, fmt.Sprintf("Failed to send email: %v", err), http.StatusInternalServerError)
 		return
 	}
-
-	log.Println("Starting TLS...")
-	if err = c.StartTLS(tlsconfig); err != nil {
-		log.Printf("Error starting TLS: %v", err)
-		http.Error(w, "Error starting TLS", http.StatusInternalServerError)
-		return
-	}
-
-	log.Println("Authenticating...")
-	if err = c.Auth(auth); err != nil {
-		log.Printf("Error authenticating: %v", err)
-		http.Error(w, "Error authenticating", http.StatusInternalServerError)
-		return
-	}
-
-	log.Println("Sending email...")
-	if err = c.Mail(from); err != nil {
-		log.Printf("Error setting from address: %v", err)
-		http.Error(w, "Error setting from address", http.StatusInternalServerError)
-		return
-	}
-
-	for _, to := range recipients {
-		if err = c.Rcpt(to); err != nil {
-			log.Printf("Error setting to address: %v", err)
-			http.Error(w, "Error setting to address", http.StatusInternalServerError)
-			return
-		}
-	}
-
-	wc, err := c.Data()
-	if err != nil {
-		log.Printf("Error getting data writer: %v", err)
-		http.Error(w, "Error getting data writer", http.StatusInternalServerError)
-		return
-	}
-
-	_, err = wc.Write([]byte(msg))
-	if err != nil {
-		log.Printf("Error writing message: %v", err)
-		http.Error(w, "Error writing message", http.StatusInternalServerError)
-		return
-	}
-
-	err = wc.Close()
-	if err != nil {
-		log.Printf("Error closing data writer: %v", err)
-		http.Error(w, "Error closing data writer", http.StatusInternalServerError)
-		return
-	}
-
-	c.Quit()
 
 	log.Println("Email sent successfully!")
 	w.Header().Set("Content-Type", "application/json")
