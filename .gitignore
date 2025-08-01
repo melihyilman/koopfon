@@ -14,7 +14,7 @@ Thumbs.db
 *.test
 *.prof
 vendor/
-go.sum
+
 
 # Node.js Specific
 node_modules/
