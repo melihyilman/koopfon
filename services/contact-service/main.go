@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	_ "github.com/koopfon/contact-service/docs"
 	"github.com/koopfon/contact-service/internal/handlers"
-	swagger "github.com/swaggo/http-swagger"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 // @title Contact Service API
