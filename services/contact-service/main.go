@@ -37,10 +37,15 @@ func main() {
 		http.Redirect(w, r, "/swagger/index.html", http.StatusMovedPermanently)
 	})
 
+	// Permissive CORS configuration
 	crs := handlers.CORS(
-		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedOriginValidator(func(origin string) bool {
+			// Allow all origins
+			return true
+		}),
 		handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"}),
-		handlers.AllowedHeaders([]string{"*"}),
+		// The gorilla/handlers package does not support `*` for headers. We list common ones instead.
+		handlers.AllowedHeaders([]string{"Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"}),
 		handlers.AllowCredentials(),
 	)
 
