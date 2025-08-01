@@ -162,14 +162,50 @@ function LandingPage(): JSX.Element {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.email)) {
       alert('Geçerli bir e-posta adresi giriniz.');
       return;
     }
-    console.log('Form submitted:', formData);
-    alert('Form gönderildi!');
+
+    const subject = `[KOOPFON] Destek Talebi Hk. - ${formData.name}`;
+    const body = `
+      Ad Soyad: ${formData.name}
+      E-posta: ${formData.email}
+      Telefon: ${formData.phone}
+      
+      Mesaj:
+      ${formData.message}
+    `;
+
+    const apiPayload = {
+      subject,
+      body,
+      reply_to: formData.email, // Add user's email for the Reply-To header
+      submission_date: new Date().toISOString(), // Add submission timestamp
+    };
+
+    try {
+      const response = await fetch('https://koopfon.onrender.com/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(apiPayload),
+      });
+
+      if (response.ok) {
+        alert('Mesajınız başarıyla gönderildi!');
+        setFormData({ name: '', email: '', phone: '', message: '' }); // Clear form
+      } else {
+        const errorData = await response.json();
+        alert(`Mesaj gönderilirken bir hata oluştu: ${errorData.message || response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Mesaj gönderilirken bir ağ hatası oluştu. Lütfen daha sonra tekrar deneyin.');
+    }
   };
 
   return (

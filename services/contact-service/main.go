@@ -24,7 +24,10 @@ import (
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/contact", handlers.ContactHandler).Methods("POST")
-	r.PathPrefix("/swagger/").Handler(swagger.WrapHandler)
+	// More explicit swagger handler configuration
+	r.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
+		httpSwagger.URL("https://koopfon.onrender.com/swagger/doc.json"), // Point to the generated doc.json
+	))
 
 	// Redirect root to swagger docs
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
