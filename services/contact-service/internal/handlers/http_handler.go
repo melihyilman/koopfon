@@ -59,8 +59,8 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	submissionTime, err := time.Parse(time.RFC3339, req.SubmissionDate)
 	formattedDate := "Bilinmiyor"
 	if err == nil {
-		loc, _ := time.LoadLocation("Europe/Istanbul")
-		formattedDate = submissionTime.In(loc).Format("02 Ocak 2006, 15:04:05 (MST)")
+		// Format the time directly without loading a specific location
+		formattedDate = submissionTime.Format("02 Ocak 2006, 15:04:05 (MST)")
 	}
 
 	bodyData := make(map[string]string)
