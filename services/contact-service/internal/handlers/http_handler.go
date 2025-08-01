@@ -10,14 +10,13 @@ import (
 	"net/smtp"
 	"os"
 	"strings"
-	"time"
 )
 
 // EmailRequest defines the structure for the incoming request
 type EmailRequest struct {
 	Subject        string `json:"subject"`
 	Body           string `json:"body"`
-	ReplyTo        string `json:"reply_to"`	
+	ReplyTo        string `json:"reply_to"`
 	SubmissionDate string `json:"submission_date"`
 }
 
