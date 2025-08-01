@@ -10,6 +10,9 @@ RUN go mod download
 # Copy the rest of the application source code
 COPY . .
 
+# Tidy the modules to ensure go.mod and go.sum are in sync with the code
+RUN go mod tidy
+
 # Build the application for a production environment
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o contact-service .
 
