@@ -11,7 +11,7 @@ definitions:
           type: string
         type: array
     type: object
-host: localhost:8081
+host: koopfon.onrender.com
 info:
   contact:
     email: soberkoder@swagger.io
@@ -42,7 +42,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            additionalProperties:
+              type: string
+            type: object
         "400":
           description: Bad Request
           schema:

@@ -14,7 +14,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:8081",
+    "host": "koopfon.onrender.com",
     "basePath": "/",
     "paths": {
         "/contact": {
@@ -45,7 +45,10 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
                     "400": {
