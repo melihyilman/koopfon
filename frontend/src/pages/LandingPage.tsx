@@ -164,6 +164,10 @@ function LandingPage(): JSX.Element {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.email)) {
+      alert('Geçerli bir e-posta adresi giriniz.');
+      return;
+    }
     console.log('Form submitted:', formData);
     alert('Form gönderildi!');
   };
@@ -183,17 +187,24 @@ function LandingPage(): JSX.Element {
               
               {/* Main Heading */}
               <div className="hero-text mb-4">
-                <h1 className="display-4 fw-bold koopfon-secondary mb-3 typewriter-text">
-                  <Typewriter
-                    options={{
-                      strings: ['Konut', 'Tarım', 'İşletme','Üretim','Enerji'],
-                      autoStart: true,
-                      loop: true,
-                    }}
-                  />
-                </h1>
-                <h1 className="display-4 fw-bold koopfon-primary">
-                  Kooperatifi yatırımlarınızı güvenle değerlendirin
+                <h1 className="display-4 fw-bold koopfon-secondary typewriter-text">
+                  <div className="typewriter-wrapper">
+                    <Typewriter
+                      options={{
+                        strings: [
+                          'Küçük bütçeler ile büyük yatırımlar yapın',
+                          'Yatırımlarınızı <span class="koopfon-primary">güvenle</span> değerlendirin',
+                          'Kooperatif hisselerinizi hızlıca satın',
+                          'Kooperatiflerinizi <span class="koopfon-primary">şeffaf bir şekilde</span> yönetin',
+                          'Kooperatiflerinizi kolayca <span class="koopfon-primary">kurun</span>'
+                        ],
+                        autoStart: true,
+                        loop: true,
+                        delay: 45,
+                        deleteSpeed: 25,
+                      }}
+                    />
+                  </div>
                 </h1>
               </div>
               
@@ -240,7 +251,7 @@ function LandingPage(): JSX.Element {
             {/* Right Side - Features */}
             <div className="col-lg-6">
               <p className="text-white fs-5 mb-4">
-                Koopfon platformu ile bireysel yatırımlarınızı yönetebilir, kooperatiflerinize çok özel hizmetlerden yararlanabilirsiniz.
+                Koopfon platformu ile bireysel yatırımlarınızı yönetebilir, kooperatifleriniz için dijital hizmetlerden yararlanabilirsiniz.
               </p>
               
               {/* Feature Cards */}
@@ -252,9 +263,9 @@ function LandingPage(): JSX.Element {
                       <span>1</span>
                     </div>
                     <div className="feature-content">
-                      <h5 className="text-white fw-semibold mb-2">Yatırım danışmanlığı ve işbirliği</h5>
+                      <h5 className="text-white fw-semibold mb-2">Yatırım Fikrini Kooperatifleştirme</h5>
                       <p className="text-white-50 small mb-0">
-                        Yatırım danışmanı ve kooperatif uzmanı olan kadromuzla birlikte, yatırımlarınızı güvenle değerlendirin.
+                        Yatırım bütçesi ve çeşidine uygun tüm yatırımcıları buluşturarak kooperatifleşmeyi, küçük bütçeler ile büyük yatırımlar yapabilmeyi sağlıyoruz. Sizin adınıza araştırma yaparak uygun yatırım fırsatları sunuyoruz.
                       </p>
                     </div>
                   </div>
@@ -267,9 +278,9 @@ function LandingPage(): JSX.Element {
                       <span>2</span>
                     </div>
                     <div className="feature-content">
-                      <h5 className="text-white fw-semibold mb-2">Ortak girişim ve işbirliği desteği</h5>
+                      <h5 className="text-white fw-semibold mb-2">Ortak olma ve Hisse devri</h5>
                       <p className="text-white-50 small mb-0">
-                        Kooperatif üyeleri ile ortak girişim yapabilir, işbirliği fırsatları yakalayabilirsiniz.
+                        Kooperatif hisseleri alım ve satım işlemlerinizi kolay, hızlı ve güvenli bir şekilde yapabilirsiniz.
                       </p>
                     </div>
                   </div>
@@ -284,7 +295,7 @@ function LandingPage(): JSX.Element {
                     <div className="feature-content">
                       <h5 className="text-white fw-semibold mb-2">Kooperatif Yönetimi</h5>
                       <p className="text-white-50 small mb-0">
-                        Mevcut kooperatiflerinizi profesyonel bir şekilde yönetebilir, üyelerinizle iletişim kurabilirsiniz.
+                        Mevzuata uygun dijital kooperatifçilik hizmetlerimizle, yatırımlarınızı tek bir platform üzerinden hızlı, kolay, şeffaf ve güvenilir bir şekilde yönetebilmenizi sağlıyoruz.
                       </p>
                     </div>
                   </div>
@@ -299,7 +310,7 @@ function LandingPage(): JSX.Element {
                     <div className="feature-content">
                       <h5 className="text-white fw-semibold mb-2">Kooperatif Kurulumu</h5>
                       <p className="text-white-50 small mb-0">
-                        Yeni kooperatif kurmak istiyorsanız, tüm süreçlerde size rehberlik ederiz.
+                        Kooperatif kurulum süreçlerindeki tüm aşamaları dijitalleştirerek, sizlere daha kolay ve öngörülebilen bir hizmet sunuyoruz. Süreçlerin tüm adımlarında sizlere destek veriyoruz.
                       </p>
                     </div>
                   </div>

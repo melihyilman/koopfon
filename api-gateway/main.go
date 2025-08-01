@@ -26,6 +26,7 @@ func main() {
 	r.Any("/auth/*proxyPath", proxyHandler("auth-service", 8081))
 	r.Any("/cooperatives/*proxyPath", proxyHandler("cooperative-service", 8082))
 	r.Any("/partners/*proxyPath", proxyHandler("partner-service", 8083))
+	r.Any("/contact/*proxyPath", proxyHandler("contact-service", 8084))
 
 	// Swagger endpoint
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

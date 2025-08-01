@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   Button,
@@ -74,7 +73,9 @@ const StepperForm: React.FC<StepperFormProps> = ({ open, handleClose }) => {
     if (activeStep === 2) {
       if (!formData.firstName) newErrors.firstName = 'Ad zorunludur.';
       if (!formData.lastName) newErrors.lastName = 'Soyad zorunludur.';
-      if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+      if (!formData.email) {
+        newErrors.email = 'E-posta adresi zorunludur.';
+      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
         newErrors.email = 'Geçerli bir e-posta adresi giriniz.';
       }
       if (!/^0\s\d{3}\s\d{3}\s\d{2}\s\d{2}$/.test(formData.phone)) {
@@ -87,6 +88,9 @@ const StepperForm: React.FC<StepperFormProps> = ({ open, handleClose }) => {
         }
         if (formData.budgetMax && isNaN(Number(formData.budgetMax))) {
             newErrors.budgetMax = 'Lütfen sayısal bir değer giriniz.';
+        }
+        if (Number(formData.budgetMin) > Number(formData.budgetMax)) {
+            newErrors.budgetMax = 'Bütçe üst limiti, alt limitten küçük olamaz.';
         }
     }
 
@@ -201,7 +205,7 @@ const StepperForm: React.FC<StepperFormProps> = ({ open, handleClose }) => {
             </FormControl>
             <Box sx={{ display: isMobile ? 'block' : 'flex', gap: 2 }}>
             <FormControl fullWidth margin="normal" variant="standard">
-              <InputLabel>İl</InputLabel>
+            <InputLabel>Yatırımınızı Hangi bölgede düşünüyorsunuz ?</InputLabel>
               <Select
                 variant="standard"
                 name="city"
@@ -211,22 +215,6 @@ const StepperForm: React.FC<StepperFormProps> = ({ open, handleClose }) => {
                 {cities.map((city) => (
                   <MenuItem key={city.id} value={city.id}>
                     {city.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl fullWidth margin="normal" variant="standard">
-              <InputLabel>İlçe</InputLabel>
-              <Select
-                variant="standard"
-                name="district"
-                value={formData.district}
-                onChange={(e) => handleSelectChange('district', e.target.value)}
-                disabled={!formData.city}
-              >
-                {districts.map((district) => (
-                  <MenuItem key={district.id} value={district.id}>
-                    {district.name}
                   </MenuItem>
                 ))}
               </Select>

@@ -66,6 +66,13 @@ services:
     networks:
       - koopbis-net
 
+  contact-service:
+    build: ./services/contact-service
+    ports:
+      - "8084:8080"
+    networks:
+      - koopbis-net
+
   frontend:
     build: ./frontend
     ports:

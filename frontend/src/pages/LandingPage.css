@@ -50,15 +50,15 @@ p, .lead {
 
 /* Logo Styles */
 .logo {
-  height: 100px;
+  height: 200px;
   width: auto;
-  max-width: 300px;
+  max-width: 400px;
 }
 
 .logo-container {
      /* transform: translateY(-5%);  */
     /* margin-bottom: -60px; */
-    margin-top:5rem; 
+    margin-top:3rem; 
 }
 
 .logo-text {
@@ -467,16 +467,23 @@ p, .lead {
   font-weight: 400; /* Or any other value for thinner text */
 }
 
+.typewriter-wrapper {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Responsive Design */
 @media (min-width: 768px) {
   .logo-container {
-     margin-bottom:7rem; 
+     margin-bottom:5rem; 
   }
 }
 
 @media (max-width: 768px) {
   .logo {
-    height: 50px;
+    height: 75px;
   }
   
   .logo-text {
@@ -543,5 +550,29 @@ p, .lead {
   
   .social-links {
     justify-content: center;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-section {
+    height: auto;
+    padding: 5rem 0;
+  }
+
+  .contact-section {
+    height: auto;
+    padding: 5rem 0;
+  }
+
+  .logo {
+    height: 100px;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem !important;
+  }
+
+  .hero-image {
+    display: none;
   }
 }
