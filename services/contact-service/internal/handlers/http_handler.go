@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"html"
@@ -16,7 +17,7 @@ import (
 type EmailRequest struct {
 	Subject        string `json:"subject"`
 	Body           string `json:"body"`
-	ReplyTo        string `json:"reply_to"`
+	ReplyTo        string `json:"reply_to"`	
 	SubmissionDate string `json:"submission_date"`
 }
 
@@ -56,12 +57,6 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	recipients := []string{"melihyilman@gmail.com", "1koopfon@gmail.com"}
 
 	// --- Create HTML Email Body ---
-	submissionTime, err := time.Parse(time.RFC3339, req.SubmissionDate)
-	formattedDate := "Bilinmiyor"
-	if err == nil {
-		// Format the time directly without loading a specific location
-		formattedDate = submissionTime.Format("02 Ocak 2006, 15:04:05 (MST)")
-	}
 
 	bodyData := make(map[string]string)
 	lines := strings.Split(req.Body, "\n")
@@ -86,7 +81,6 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 		html.EscapeString(bodyData["E-posta"]),
 		html.EscapeString(bodyData["E-posta"]),
 		html.EscapeString(bodyData["Telefon"]),
-		formattedDate,
 		html.EscapeString(bodyData["Mesaj"]),
 	)
 
@@ -106,17 +100,75 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	msg.WriteString("\r\n")
 	msg.WriteString(htmlBody)
 
-	// --- Send the email ---
+	// --- Send the email (manual SMTP connection with InsecureSkipVerify) ---
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 	addr := smtpHost + ":" + smtpPort
 
-	log.Println("Attempting to send email via SMTP...")
-	err = smtp.SendMail(addr, auth, from, recipients, []byte(msg.String()))
+	// TLS configuration with insecure skip verify
+	tlsconfig := &tls.Config{
+		InsecureSkipVerify: true,
+		ServerName:         smtpHost,
+	}
+
+	log.Println("Connecting to SMTP server...")
+	c, err := smtp.Dial(addr)
 	if err != nil {
-		log.Printf("Error sending email: %v", err)
-		http.Error(w, fmt.Sprintf("Failed to send email: %v", err), http.StatusInternalServerError)
+		log.Printf("Error connecting to SMTP server: %v", err)
+		http.Error(w, "Error connecting to SMTP server", http.StatusInternalServerError)
 		return
 	}
+
+	log.Println("Starting TLS...")
+	if err = c.StartTLS(tlsconfig); err != nil {
+		log.Printf("Error starting TLS: %v", err)
+		http.Error(w, "Error starting TLS", http.StatusInternalServerError)
+		return
+	}
+
+	log.Println("Authenticating...")
+	if err = c.Auth(auth); err != nil {
+		log.Printf("Error authenticating: %v", err)
+		http.Error(w, "Error authenticating", http.StatusInternalServerError)
+		return
+	}
+
+	log.Println("Sending email...")
+	if err = c.Mail(from); err != nil {
+		log.Printf("Error setting from address: %v", err)
+		http.Error(w, "Error setting from address", http.StatusInternalServerError)
+		return
+	}
+
+	for _, to := range recipients {
+		if err = c.Rcpt(to); err != nil {
+			log.Printf("Error setting to address: %v", err)
+			http.Error(w, "Error setting to address", http.StatusInternalServerError)
+			return
+		}
+	}
+
+	wc, err := c.Data()
+	if err != nil {
+		log.Printf("Error getting data writer: %v", err)
+		http.Error(w, "Error getting data writer", http.StatusInternalServerError)
+		return
+	}
+
+	_, err = wc.Write([]byte(msg.String()))
+	if err != nil {
+		log.Printf("Error writing message: %v", err)
+		http.Error(w, "Error writing message", http.StatusInternalServerError)
+		return
+	}
+
+	err = wc.Close()
+	if err != nil {
+		log.Printf("Error closing data writer: %v", err)
+		http.Error(w, "Error closing data writer", http.StatusInternalServerError)
+		return
+	}
+
+	c.Quit()
 
 	log.Println("Email sent successfully!")
 	w.Header().Set("Content-Type", "application/json")
