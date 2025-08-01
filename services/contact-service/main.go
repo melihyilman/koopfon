@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"regexp"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -38,17 +37,11 @@ func main() {
 		http.Redirect(w, r, "/swagger/index.html", http.StatusMovedPermanently)
 	})
 
-	// CORS configuration with a simpler, more secure regex validator.
-	allowedOrigins := handlers.AllowedOriginValidator(func(origin string) bool {
-		// Allow koopfon.com, test.koopfon.com, and localhost (with any port).
-		matched, _ := regexp.MatchString(`^https?://(localhost|koopfon\.com|test\.koopfon\.com)(:\d+)?$`, origin)
-		return matched
-	})
-
 	crs := handlers.CORS(
-		allowedOrigins,
-		handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"}),
-		handlers.AllowedHeaders([]string{"Content-Type", "Authorization"}),
+		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"}),
+		handlers.AllowedHeaders([]string{"*"}),
+		handlers.AllowCredentials(),
 	)
 
 	port := os.Getenv("PORT")
