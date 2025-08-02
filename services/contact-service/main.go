@@ -25,7 +25,17 @@ import (
 // @schemes https
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/contact", contactHandlers.ContactHandler).Methods("POST")
+	
+	// Contact endpoint - POST ve OPTIONS metodlarını ekle
+	r.HandleFunc("/contact", contactHandlers.ContactHandler).Methods("POST", "OPTIONS")
+	
+	// Manual OPTIONS handler for preflight requests
+	r.HandleFunc("/contact", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, Origin")
+		w.WriteHeader(http.StatusOK)
+	}).Methods("OPTIONS")
 
 	// Swagger handler
 	r.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
@@ -37,18 +47,25 @@ func main() {
 		http.Redirect(w, r, "/swagger/index.html", http.StatusMovedPermanently)
 	})
 
-	// Permissive CORS configuration
+	// CORS configuration - AllowCredentials kaldırıldı
 	crs := handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}), // Allow all origins
-		handlers.AllowedMethods([]string{"*"}),
-		// The gorilla/handlers package does not support `*` for headers. We list common ones instead.
-		handlers.AllowedHeaders([]string{"Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"}),
-		handlers.AllowCredentials(),
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"}),
+		handlers.AllowedHeaders([]string{
+			"Content-Type", 
+			"Authorization", 
+			"X-Requested-With", 
+			"Accept", 
+			"Origin",
+			"Access-Control-Request-Method",
+			"Access-Control-Request-Headers",
+		}),
+		// AllowCredentials() kaldırıldı - * origin ile uyumlu değil
 	)
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8081" // Default port if not specified
+		port = "8080" // Cloud Run default port
 	}
 
 	log.Printf("Contact service listening on port %s", port)
