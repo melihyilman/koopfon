@@ -26,7 +26,19 @@ func main() {
 	r.Any("/auth/*proxyPath", proxyHandler("auth-service", 8081))
 	r.Any("/cooperatives/*proxyPath", proxyHandler("cooperative-service", 8082))
 	r.Any("/partners/*proxyPath", proxyHandler("partner-service", 8083))
-	r.Any("/contact/*proxyPath", proxyHandler("contact-service", 8084))
+	// Proxy for contact-service, now deployed on Google Cloud Run
+	contactServiceURL, _ := url.Parse("https://koopfon-797637104173.europe-west1.run.app")
+	contactProxy := httputil.NewSingleHostReverseProxy(contactServiceURL)
+	contactProxy.Director = func(req *http.Request) {
+		req.Header = req.Header
+		req.Host = contactServiceURL.Host
+		req.URL.Scheme = contactServiceURL.Scheme
+		req.URL.Host = contactServiceURL.Host
+		req.URL.Path = strings.TrimPrefix(req.URL.Path, "/contact") // Remove /contact prefix
+	}
+	r.Any("/contact/*proxyPath", func(c *gin.Context) {
+		contactProxy.ServeHTTP(c.Writer, c.Request)
+	})
 
 	// Swagger endpoint
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

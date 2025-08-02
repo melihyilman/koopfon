@@ -20,7 +20,7 @@ import (
 // @contact.email soberkoder@swagger.io
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-// @host koopfon.onrender.com
+// @host koopfon-797637104173.europe-west1.run.app
 // @BasePath /
 // @schemes https
 func main() {
@@ -29,7 +29,7 @@ func main() {
 
 	// Swagger handler
 	r.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
-		httpSwagger.URL("https://koopfon.onrender.com/swagger/doc.json"),
+		httpSwagger.URL("https://koopfon-797637104173.europe-west1.run.app/swagger/doc.json"),
 	))
 
 	// Redirect root to swagger docs
