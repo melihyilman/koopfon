@@ -39,13 +39,10 @@ func main() {
 
 	// Permissive CORS configuration
 	crs := handlers.CORS(
-		handlers.AllowedOriginValidator(func(origin string) bool {
-			// Allow all origins
-			return true
-		}),
+		handlers.AllowedOrigins([]string{"*"}), // Allow all origins
 		handlers.AllowedMethods([]string{"*"}),
 		// The gorilla/handlers package does not support `*` for headers. We list common ones instead.
-		handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"}),
+		handlers.AllowedHeaders([]string{"Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"}),
 		handlers.AllowCredentials(),
 	)
 
