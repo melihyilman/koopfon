@@ -187,7 +187,7 @@ function LandingPage(): JSX.Element {
     };
 
     try {
-      const response = await fetch('https://koopfon.onrender.com/contact', {
+      const response = await fetch('https://koopfon-797637104173.europe-west1.run.app/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

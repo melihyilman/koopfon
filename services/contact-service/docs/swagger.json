@@ -14,7 +14,7 @@
         },
         "version": "1.0"
     },
-    "host": "koopfon.onrender.com",
+    "host": "koopfon-797637104173.europe-west1.run.app",
     "basePath": "/",
     "paths": {
         "/contact": {

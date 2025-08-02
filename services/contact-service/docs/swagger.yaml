@@ -11,7 +11,7 @@ definitions:
           type: string
         type: array
     type: object
-host: koopfon.onrender.com
+host: koopfon-797637104173.europe-west1.run.app
 info:
   contact:
     email: soberkoder@swagger.io

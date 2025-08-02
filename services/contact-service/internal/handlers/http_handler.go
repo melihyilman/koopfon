@@ -14,10 +14,9 @@ import (
 
 // EmailRequest defines the structure for the incoming request
 type EmailRequest struct {
-	Subject        string `json:"subject"`
-	Body           string `json:"body"`
-	ReplyTo        string `json:"reply_to"`
-	SubmissionDate string `json:"submission_date"`
+	Subject string `json:"subject"`
+	Body    string `json:"body"`
+	ReplyTo string `json:"reply_to"`
 }
 
 // ContactHandler godoc
@@ -75,15 +74,13 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	bodyData["Mesaj"] = message
 
 	htmlBody := fmt.Sprintf(`
-<!DOCTYPE html><html><head><style>body{font-family:Arial,sans-serif;margin:0;padding:20px;background-color:#f4f4f4;}.container{background-color:#ffffff;border-radius:8px;padding:20px;max-width:600px;margin:auto;border:1px solid #ddd;}.header{font-size:24px;color:#175844;margin-bottom:20px;text-align:center;}.content-table{width:100%%;border-collapse:collapse;}.content-table th,.content-table td{padding:12px 15px;border:1px solid #ddd;text-align:left;}.content-table th{background-color:#f8f8f8;color:#333;width:150px;}.message-block{background-color:#fdfdfd;border-left:4px solid #175844;padding:15px;margin-top:15px;white-space:pre-wrap;word-wrap:break-word;}.footer{text-align:center;margin-top:20px;font-size:12px;color:#888;}</style></head><body><div class="container"><div class="header">Koopfon İletişim Formu</div><table class="content-table"><tr><th>Ad Soyad</th><td>%s</td></tr><tr><th>E-posta</th><td><a href="mailto:%s">%s</a></td></tr><tr><th>Telefon</th><td>%s</td></tr><tr><th>Talep Tarihi</th><td>%s</td></tr></table><div class="message-block"><strong>Mesaj:</strong><br>%s</div><div class="footer">Bu e-posta, Koopfon web sitesi üzerinden gönderilmiştir.</div></div></body></html>`,
+<!DOCTYPE html><html><head><style>body{font-family:Arial,sans-serif;margin:0;padding:20px;background-color:#f4f4f4;}.container{background-color:#ffffff;border-radius:8px;padding:20px;max-width:600px;margin:auto;border:1px solid #ddd;}.header{font-size:24px;color:#175844;margin-bottom:20px;text-align:center;}.content-table{width:100%%;border-collapse:collapse;}.content-table th,.content-table td{padding:12px 15px;border:1px solid #ddd;text-align:left;}.content-table th{background-color:#f8f8f8;color:#333;width:150px;}.message-block{background-color:#fdfdfd;border-left:4px solid #175844;padding:15px;margin-top:15px;white-space:pre-wrap;word-wrap:break-word;}.footer{text-align:center;margin-top:20px;font-size:12px;color:#888;}</style></head><body><div class="container"><div class="header">Koopfon İletişim Formu</div><table class="content-table"><tr><th>Ad Soyad</th><td>%s</td></tr><tr><th>E-posta</th><td><a href="mailto:%s">%s</a></td></tr><tr><th>Telefon</th><td>%s</td></tr></table><div class="message-block"><strong>Mesaj:</strong><br>%s</div><div class="footer">Bu e-posta, Koopfon web sitesi üzerinden gönderilmiştir.</div></div></body></html>`,
 		html.EscapeString(bodyData["Ad Soyad"]),
 		html.EscapeString(bodyData["E-posta"]),
 		html.EscapeString(bodyData["E-posta"]),
 		html.EscapeString(bodyData["Telefon"]),
 		html.EscapeString(bodyData["Mesaj"]),
 	)
-
-	// --- Construct the email message with headers ---
 	headers := make(map[string]string)
 	headers["From"] = from
 	headers["To"] = strings.Join(recipients, ", ")

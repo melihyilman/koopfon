@@ -97,7 +97,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "koopfon.onrender.com",
+	Host:             "koopfon-797637104173.europe-west1.run.app",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Contact Service API",
