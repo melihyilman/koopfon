@@ -43,9 +43,9 @@ func main() {
 			// Allow all origins
 			return true
 		}),
-		handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"}),
+		handlers.AllowedMethods([]string{"*"}),
 		// The gorilla/handlers package does not support `*` for headers. We list common ones instead.
-		handlers.AllowedHeaders([]string{"Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"}),
+		handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"}),
 		handlers.AllowCredentials(),
 	)
 
