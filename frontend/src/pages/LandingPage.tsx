@@ -1,5 +1,13 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect, useRef } from 'react';
-import { TextField, Button, Box, Fab, SvgIcon } from '@mui/material';
+import { TextField, Button, Box, Fab, SvgIcon, Snackbar } from '@mui/material';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import Slide, { SlideProps } from '@mui/material/Slide';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props, ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -37,6 +45,9 @@ function LandingPage(): JSX.Element {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [fabStyle, setFabStyle] = useState({});
   const [open, setOpen] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error' | 'info' | 'warning'>('info');
 
   const handleOpen = () => {
     setOpen(true);
@@ -44,6 +55,19 @@ function LandingPage(): JSX.Element {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const showSnackbar = (message: string, severity: 'success' | 'error' | 'info' | 'warning') => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   const heroRef = useRef<HTMLElement>(null);
@@ -165,7 +189,7 @@ function LandingPage(): JSX.Element {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.email)) {
-      alert('Geçerli bir e-posta adresi giriniz.');
+      showSnackbar('Geçerli bir e-posta adresi giriniz.', 'error');
       return;
     }
 
@@ -196,15 +220,15 @@ function LandingPage(): JSX.Element {
       });
 
       if (response.ok) {
-        alert('Mesajınız başarıyla gönderildi!');
+        showSnackbar('Mesajınız başarıyla gönderildi!', 'success');
         setFormData({ name: '', email: '', phone: '', message: '' }); // Clear form
       } else {
         const errorData = await response.json();
-        alert(`Mesaj gönderilirken bir hata oluştu: ${errorData.message || response.statusText}`);
+        showSnackbar(`Mesaj gönderilirken bir hata oluştu: ${errorData.message || response.statusText}`, 'error');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Mesaj gönderilirken bir ağ hatası oluştu. Lütfen daha sonra tekrar deneyin.');
+      showSnackbar('Mesaj gönderilirken bir ağ hatası oluştu. Lütfen daha sonra tekrar deneyin.', 'error');
     }
   };
 
@@ -516,6 +540,27 @@ function LandingPage(): JSX.Element {
         </Fab>
       )}
       <StepperForm open={open} handleClose={handleClose} />
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        TransitionComponent={Slide}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          sx={{
+            width: '100%',
+            fontSize: '1.2rem', // Make text larger
+            padding: '16px 24px', // Increase padding
+            color: (theme) => theme.palette.getContrastText(theme.palette[snackbarSeverity].main), // Ensure contrasting text color
+          }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
