@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent, useEffect, useRef } from 'reac
 import { TextField, Button, Box, Fab, SvgIcon, Snackbar } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Slide, { SlideProps } from '@mui/material/Slide';
+import { Link } from 'react-router-dom';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props, ref
@@ -9,16 +10,13 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import LanguageIcon from '@mui/icons-material/Language';
+import Footer from '../components/Footer';
 import Typewriter from 'typewriter-effect';
 import logoV11 from '../assets/images/logo-koopfon-2.png';
 import buildAsset from '../assets/images/build-asset.png';
 import whatKoopfonDoes from '../assets/images/what-koopfon-does.png';
 import './LandingPage.css';
-import StepperForm from '../components/StepperForm';
+import ApplyButton from '../components/ApplyButton';
 
 // Custom X/Twitter Icon
 const XIcon = () => (
@@ -44,18 +42,9 @@ function LandingPage(): JSX.Element {
 
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [fabStyle, setFabStyle] = useState({});
-  const [open, setOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error' | 'info' | 'warning'>('info');
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const showSnackbar = (message: string, severity: 'success' | 'error' | 'info' | 'warning') => {
     setSnackbarMessage(message);
@@ -270,13 +259,11 @@ function LandingPage(): JSX.Element {
               
               {/* Description */}
               <p className="lead text-muted mb-4">
-                Bize taleplerinizi iletin, bütçenize uygun doğru yatırımları sizlerle buluşturalım
+                Bize taleplerinizi iletin, bütçenize uygun doğru yatırımları sizlerle buluşturalım. Daha fazla bilgi için <Link to="/koopfon-detay" style={{fontWeight: 'bold', color: 'inherit', textDecoration: 'none'}}>tıklayın.</Link>
               </p>
               
               {/* CTA Button */}
-              <button className="btn btn-koopfon-secondary btn-lg px-4 py-2" onClick={handleOpen}>
-                Hemen Başvur
-              </button>
+              <ApplyButton />
             </div>
             
             {/* Right Content - Build Asset Image */}
@@ -475,54 +462,7 @@ function LandingPage(): JSX.Element {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer ref={footerRef} data-theme="dark" className="footer-section">
-        <div className="container footer-content">
-          <div className="row">
-            {/* Left - Social Media */}
-            <div className="col-md-4 mb-4 mb-md-0">
-              <h5 className="text-white fw-semibold mb-3">Bizi Takip Edin</h5>
-              <div className="social-links">
-                <a href="https://www.facebook.com/profile.php?id=61578509685985&locale=tr_TR" target="_blank" rel="noopener noreferrer" className="social-link me-3"><FacebookIcon /></a>
-                <a href="https://www.instagram.com/koopfon/" target="_blank" rel="noopener noreferrer" className="social-link me-3"><InstagramIcon /></a>
-                <a href="#"  className="social-link me-3"><LinkedInIcon /></a>
-                <a href="#" className="social-link me-3"><LanguageIcon /></a>
-                <a href="https://x.com/koopfon" target="_blank" rel="noopener noreferrer" className="social-link"><XIcon /></a>
-              </div>
-            </div>
-            
-            {/* Center - Corporate Links */}
-            <div className="col-md-4 mb-4 mb-md-0">
-              <h5 className="text-white fw-semibold mb-3">Kurumsal</h5>
-              <ul className="list-unstyled">
-                <li className="mb-2"><a href="#" className="footer-link">Hakkımızda</a></li>
-                <li className="mb-2"><a href="#" className="footer-link">Gizlilik Politikası</a></li>
-                <li className="mb-2"><a href="#" className="footer-link">Çerez Politikası</a></li>
-                <li className="mb-2"><a href="#" className="footer-link">Bilgi Güvenliği Politikası</a></li>
-                <li className="mb-2"><a href="#" className="footer-link">Veri Bilim Aydınlatma Metni</a></li>
-                <li><a href="#" className="footer-link">Açık Rıza Politikası</a></li>
-              </ul>
-            </div>
-            
-            {/* Right - Legal */}
-            <div className="col-md-4">
-              <h5 className="text-white fw-semibold mb-3">Yasal Bilgiler</h5>
-              <ul className="list-unstyled">
-                <li className="mb-2"><a href="#" className="footer-link">Yatırım ve İşlem Rehberi</a></li>
-                <li><a href="#" className="footer-link">Şikayet Politikası</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          {/* Bottom Copyright */}
-          <hr className="border-white-50 my-4" />
-          <div className="text-center">
-            <p className="text-white-50 small mb-0">
-              Copyright © 2025 KOOPFON. All Rights Reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer ref={footerRef} />
 
       {showScrollButton && (
         <Fab
@@ -539,8 +479,6 @@ function LandingPage(): JSX.Element {
           <KeyboardArrowUpIcon />
         </Fab>
       )}
-      <StepperForm open={open} handleClose={handleClose} />
-
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}

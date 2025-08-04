@@ -56,8 +56,6 @@ p, .lead {
 }
 
 .logo-container {
-     /* transform: translateY(-5%);  */
-    /* margin-bottom: -60px; */
     margin-top:3rem; 
 }
 
@@ -75,26 +73,6 @@ p, .lead {
 
 .koopfon-secondary {
   color: var(--koopfon-secondary) !important;
-}
-
-/* Custom Button */
-.btn-koopfon {
-  background-color: var(--koopfon-primary);
-  border-color: var(--koopfon-primary);
-  color: white;
-  font-weight: 600;
-  font-family: 'Roboto', sans-serif;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-  padding: 0.75rem 2rem;
-}
-
-.btn-koopfon:hover {
-  background-color: var(--koopfon-green-light);
-  border-color: var(--koopfon-green-light);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(var(--koopfon-primary-rgb), 0.3);
 }
 
 /* Custom Button */
@@ -167,55 +145,6 @@ p, .lead {
   font-weight: 700;
 }
 
-.graphics-container {
-  padding: 2rem 0;
-}
-
-.chart-icon {
-  margin-bottom: 2rem;
-}
-
-.icon-circle {
-  width: 120px;
-  height: 120px;
-  background-color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-.icon-chart {
-  font-size: 3rem;
-}
-
-.tablet-container {
-  display: flex;
-  justify-content: center;
-}
-
-.tablet-device {
-  width: 250px;
-  height: 160px;
-  background-color: white;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  position: relative;
-}
-
-.tablet-screen {
-  font-size: 2.5rem;
-}
-
-.features-list {
-  padding-left: 0;
-}
-
 .feature-card {
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -249,20 +178,6 @@ p, .lead {
   font-family: 'Roboto', sans-serif;
 }
 
-.feature-content {
-  flex: 1;
-}
-
-.feature-content h5 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 600;
-}
-
-.feature-content p {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-}
-
 /* Contact Section */
 .contact-section {
   height: 100vh;
@@ -290,23 +205,11 @@ p, .lead {
   font-weight: 700;
 }
 
-.contact-info {
-  padding-left: 2rem;
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
 .contact-info h3 {
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
   color: var(--koopfon-text-dark);
   font-size: 36px;
-}
-
-.contact-info p {
-  font-family: 'Open Sans', sans-serif;
-  color: var(--koopfon-text-light);
 }
 
 /* Contact Form Styles */
@@ -315,18 +218,8 @@ p, .lead {
     border-bottom: 1px solid #ced4da;
 }
 
-.contact-form-box .MuiTextField-root .MuiFilledInput-root:hover {
-    background-color: transparent;
-}
-
 .contact-form-box .MuiTextField-root .MuiFilledInput-root.Mui-focused {
-    background-color: transparent;
     border-bottom: 2px solid var(--koopfon-primary);
-}
-
-.contact-form-box .MuiTextField-root .MuiFilledInput-root::before,
-.contact-form-box .MuiTextField-root .MuiFilledInput-root::after {
-    display: none;
 }
 
 .contact-form-box .MuiTextField-root .MuiInputLabel-root.Mui-focused {
@@ -339,16 +232,11 @@ p, .lead {
     background-color: var(--koopfon-primary);
 }
 
-.contact-form-box .contact-submit-button:hover {
-    background-color: var(--koopfon-green-light);
-}
-
 /* Scroll Down Indicator */
 .scroll-down-indicator {
     position: absolute;
     bottom: 2rem;
     left: 50%;
-    transform: translateX(-50%);
     width: 24px;
     height: 24px;
     border-left: 2px solid var(--koopfon-primary);
@@ -358,76 +246,66 @@ p, .lead {
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0) rotate(-45deg);
-    }
-    40% {
-        transform: translateY(-15px) rotate(-45deg);
-    }
-    60% {
-        transform: translateY(-10px) rotate(-45deg);
-    }
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(-45deg); }
+    40% { transform: translateY(-15px) rotate(-45deg); }
+    60% { transform: translateY(-10px) rotate(-45deg); }
 }
 
 /* Footer Section */
 .footer-section {
-  background-color: var(--koopfon-primary);
   padding: 3rem 0 2rem;
-  color: white;
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
   display: flex;
   align-items: center;
 }
 
-/* Footer Animation - Diagonal Line */
-.footer-section::before {
+/* Default/Landing Page Footer Style */
+.footer-section:not(.footer-light) {
+  background-color: var(--koopfon-primary-background);
+  color: var(--koopfon-text-dark);
+  min-height: 70vh;
+}
+
+/* Green triangle for landing page footer */
+.footer-section:not(.footer-light)::before {
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
-  width: 200%;
+  left: 0;
+  width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    transparent 49%,
-    var(--koopfon-primary) 49.5%,
-    var(--koopfon-primary) 50.5%,
-    transparent 51%,
-    transparent 100%
-  );
-  animation: footerSlideIn 2s ease-out forwards;
+  background-color: var(--koopfon-primary);
+  clip-path: polygon(0 0, 100% 0, 0 15vh);
   z-index: 1;
 }
 
-@keyframes footerSlideIn {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 0%;
-  }
+/* Light theme for other pages (AboutUs, KoopfonDetail) */
+.footer-section.footer-light {
+  background-color: var(--koopfon-primary-background);
+  color: var(--koopfon-text-dark);
+  min-height: auto; /* No min-height for light footers */
 }
 
-/* Footer Content */
+.footer-section.footer-light .social-link,
+.footer-section.footer-light .footer-link {
+  color: var(--koopfon-text-dark);
+}
+
+.footer-section.footer-light .social-link:hover,
+.footer-section.footer-light .footer-link:hover {
+  color: var(--koopfon-primary);
+}
+
+.footer-section.footer-light hr {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Common footer content styles */
 .footer-content {
   position: relative;
   z-index: 2;
-  opacity: 0;
-  animation: footerContentFadeIn 1s ease-out 1.5s forwards;
-}
-
-@keyframes footerContentFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  width: 100%;
 }
 
 .footer-section h5 {
@@ -441,30 +319,51 @@ p, .lead {
 }
 
 .social-link {
-  color: white;
   text-decoration: none;
   font-size: 1.5rem;
   transition: all 0.3s ease;
 }
 
 .social-link:hover {
-  color: #ffffff;
   transform: translateY(-2px);
 }
 
 .footer-link {
-  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   transition: color 0.3s ease;
   font-family: 'Open Sans', sans-serif;
 }
 
-.footer-link:hover {
-  color: white;
+.footer-section hr {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Specific text color for landing page footer where it overlaps with the green triangle */
+.footer-section:not(.footer-light) .row > .col-md-4:first-child h5,
+.footer-section:not(.footer-light) .row > .col-md-4:first-child .social-link {
+  color: var(--koopfon-text-dark);
+}
+
+.footer-section:not(.footer-light) .row > .col-md-4:first-child .social-link:hover {
+  color: var(--koopfon-primary);
+}
+
+/* The rest of the text on landing footer */
+.footer-section:not(.footer-light) .footer-link {
+  color: var(--koopfon-text-light);
+}
+.footer-section:not(.footer-light) .footer-link:hover {
+  color: var(--koopfon-primary);
+}
+.footer-section:not(.footer-light) p {
+    color: var(--koopfon-text-light);
+}
+.footer-section:not(.footer-light) .row > .col-md-4:not(:first-child) h5 {
+    color: var(--koopfon-text-dark);
 }
 
 .typewriter-text .Typewriter__wrapper {
-  font-weight: 700; /* Or any other value for thinner text */
+  font-weight: 700;
 }
 
 .typewriter-wrapper {
@@ -475,104 +374,36 @@ p, .lead {
 }
 
 /* Responsive Design */
-@media (min-width: 768px) {
-  .logo-container {
-     margin-bottom:5rem; 
-  }
+@media (max-width: 992px) {
+    .hero-image { display: none; }
 }
 
 @media (max-width: 768px) {
-  .logo {
-    height: 75px;
-  }
-  
-  .logo-text {
-    font-size: 2.5rem;
-  }
-  
-  .hero-text h1 {
-    font-size: 2.5rem !important;
-  }
-  
-  .house-container {
-    height: 250px;
-  }
-  
-  .house-emoji {
-    font-size: 3rem;
-  }
-  
-  .contact-info {
-    padding-left: 0;
-    margin-top: 2rem;
-  }
-
-  .contact-info h3 {
-    font-size: 24px;
-  }
-  
-  .icon-circle {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .icon-chart {
-    font-size: 2.5rem;
-  }
-  
-  .tablet-device {
-    width: 200px;
-    height: 130px;
-  }
-  
-  .tablet-screen {
-    font-size: 2rem;
+  .logo { height: 150px; }
+  .hero-text h1 { font-size: 2.5rem !important; }
+  .contact-info { padding-left: 0; margin-top: 2rem; }
+  .contact-info h3 { font-size: 24px; }
+  .footer-section:not(.footer-light)::before {
+    clip-path: polygon(0 0, 100% 0, 0 10vh);
   }
 }
 
 @media (max-width: 576px) {
-  .hero-section {
-    padding: 1rem 0;
+  .hero-section, .contact-section { padding-top: 4rem; padding-bottom: 4rem; height: auto;}
+  .section-title-badge, .contact-title-badge { padding: 0.75rem 1.5rem; }
+  .social-links { justify-content: center; }
+  .footer-section:not(.footer-light) {
+    min-height: auto;
+    padding-top: 5rem;
   }
-  
-  .contact-section {
-    padding-top: 8rem;
+  .footer-section:not(.footer-light)::before {
+    clip-path: polygon(0 0, 100% 0, 0 5vh);
   }
-  
-  .section-title-badge,
-  .contact-title-badge {
-    padding: 0.75rem 1.5rem;
+  .footer-content .row > div {
+      text-align: center;
+      margin-bottom: 2rem;
   }
-  
-  .feature-card {
-    padding: 1rem;
-  }
-  
   .social-links {
-    justify-content: center;
-  }
-}
-
-@media (max-height: 500px) and (orientation: landscape) {
-  .hero-section {
-    height: auto;
-    padding: 5rem 0;
-  }
-
-  .contact-section {
-    height: auto;
-    padding: 5rem 0;
-  }
-
-  .logo {
-    height: 100px;
-  }
-
-  .hero-text h1 {
-    font-size: 2rem !important;
-  }
-
-  .hero-image {
-    display: none;
+      justify-content: center;
   }
 }

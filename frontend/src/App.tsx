@@ -15,6 +15,8 @@ import GeneralMeetingDetailPage from './pages/GeneralMeetingDetailPage';
 import FinancialsPage from './pages/FinancialsPage';
 import DocumentManagementPage from './pages/DocumentManagementPage';
 import LandingPage from "./pages/LandingPage";
+import KoopfonDetailPage from './pages/KoopfonDetailPage';
+import AboutUsPage from './pages/AboutUsPage';
 
 // Örnek oturum kontrolü (gerçek uygulamada authSlice veya context ile yapılmalı)
 const isAuthenticated = true;
@@ -42,6 +44,8 @@ const App: React.FC = () => (
   <Router>
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/koopfon-detay" element={<KoopfonDetailPage />} />
+      <Route path="/hakkimizda" element={<AboutUsPage />} />
       <Route path="/login" element={<LoginPage />} />
       {isAuthenticated ? (
         <Route path="/admin/*" element={<AdminRoutes />} />
