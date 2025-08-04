@@ -31,7 +31,7 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(({ theme = 'dark' }, r
               <a href="https://www.facebook.com/profile.php?id=61578509685985&locale=tr_TR" target="_blank" rel="noopener noreferrer" className="social-link me-3"><FacebookIcon /></a>
               <a href="https://www.instagram.com/koopfon/" target="_blank" rel="noopener noreferrer" className="social-link me-3"><InstagramIcon /></a>
               <a href="#" className="social-link me-3"><LinkedInIcon /></a>
-              <a href="#" className="social-link me-3"><LanguageIcon /></a>
+              <Link to="/" className="social-link me-3"><LanguageIcon /></Link>
               <a href="https://x.com/koopfon" target="_blank" rel="noopener noreferrer" className="social-link"><XIcon /></a>
             </div>
           </div>

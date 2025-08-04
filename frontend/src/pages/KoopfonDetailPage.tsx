@@ -21,11 +21,11 @@ function KoopfonDetailPage(): JSX.Element {
                 </Link>
               </div>
 
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <h1 className="display-5 fw-bold koopfon-secondary mb-0">
+              <div className="d-md-flex justify-content-between align-items-center mb-4">
+                <h1 className="display-5 fw-bold koopfon-secondary mb-3 mb-md-0">
                   Birlikte Kooperatif Kurmak İçin Ortak Arıyoruz!
                 </h1>
-                <div className="ms-4 flex-shrink-0">
+                <div className="ms-md-4 flex-shrink-0">
                     <ApplyButton />
                 </div>
               </div>
