@@ -270,7 +270,7 @@ function LandingPage(): JSX.Element {
               
               {/* Description */}
               <p className="lead text-muted mb-4">
-                Bize telefonunuz listin, bütçenize uygun doğru yatırımları sizlere bulduralım
+                Bize taleplerinizi iletin, bütçenize uygun doğru yatırımları sizlerle buluşturalım
               </p>
               
               {/* CTA Button */}
