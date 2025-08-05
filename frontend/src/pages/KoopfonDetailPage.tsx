@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import ApplyButton from '../components/ApplyButton';
@@ -7,6 +7,10 @@ import './LandingPage.css';
 
 function KoopfonDetailPage(): JSX.Element {
   const footerRef = React.useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    document.title = "Kooperatif Kurmak İçin Ortak Arıyoruz!";
+  }, []);
 
   return (
     <div className="koopfon-app">
@@ -30,7 +34,7 @@ function KoopfonDetailPage(): JSX.Element {
                 </div>
               </div>
 
-              <p className="lead text-muted mt-3">
+              <p className="mb-4">
                 <span className="fw-bold">"Küçük bütçelerle, birlikte ev yapalım"</span> diyenler, bu çağrı size.
               </p>
 
@@ -43,7 +47,7 @@ function KoopfonDetailPage(): JSX.Element {
 
               <h4 className="fw-bold koopfon-primary mt-5">Kimleri Arıyoruz?</h4>
               <p className="mb-4">
-                Biz de tam bu noktada, aynı meslek gruplarından, yaklaşık aynı bütçelere ve benzer beklentilere sahip, ev sahibi olmak isteyen ama piyasadaki sürekli değişen fiyat dinamikleri karşısında ortak hayalleri olan insanların bir araya gelmeyi hedeflediğik. Şimdi bu hayalimizi büyütmek, birlikte bir yapı kooperatifi kurmak için aynı yolda yürümek isteyen, "birlikte güvenli ve dayanışmacı bir yaşam kuralım!" diyen ortaklar arıyoruz.
+                Biz de tam bu noktada, aynı meslek gruplarından, yaklaşık aynı bütçelere ve benzer beklentilere sahip, ev sahibi olmak isteyen ama piyasadaki sürekli olarak artan fiyatlara yetişemeyen, ortak hayalleri olan insanları bir araya getirmeyi hedefledik. Şimdi bu hayalimizi büyütmek, birlikte bir yapı kooperatifi kurmak için aynı yolda yürümek isteyen, “birlikte güvenli ve dayanışmacı bir yaşam kuralım” diyen ortaklar arıyoruz. 
               </p>
 
               <h4 className="fw-bold koopfon-primary mt-5">Neden Kooperatife Katılmalıyım?</h4>

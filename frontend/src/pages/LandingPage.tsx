@@ -259,7 +259,7 @@ function LandingPage(): JSX.Element {
               
               {/* Description */}
               <p className="lead text-muted mb-4">
-                Bize taleplerinizi iletin, bütçenize uygun doğru yatırımları sizlerle buluşturalım. Daha fazla bilgi için <Link to="/koopfon-detay" style={{fontWeight: 'bold', color: 'inherit', textDecoration: 'none'}}>tıklayın.</Link>
+                Bize taleplerinizi iletin, bütçenize uygun doğru yatırımları sizlerle buluşturalım. Daha fazla bilgi için <Link to="/kooperatif-kurmak-için-ortak-ariyoruz" style={{fontWeight: 'bold', color: 'inherit', textDecoration: 'none'}}>tıklayın.</Link>
               </p>
               
               {/* CTA Button */}

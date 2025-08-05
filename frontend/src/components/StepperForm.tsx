@@ -19,7 +19,9 @@ import {
   FormHelperText,
   useMediaQuery,
   useTheme,
+  IconButton,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import '../pages/LandingPage.css'; // Stil için
 
 const steps = ['Beklentileriniz', 'Bütçe ve Notlar', 'Kişisel Bilgiler'];
@@ -176,7 +178,24 @@ const StepperForm: React.FC<StepperFormProps> = ({ open, handleClose }) => {
 
   const handleSubmit = () => {
     if (validate()) {
-      console.log('Form Data Submitted:', formData);
+      const subject = `[KOOPFON] Yeni Başvuru: ${formData.firstName} ${formData.lastName}`;
+      const body = `
+        Kooperatif İlgisi: ${formData.cooperativeInterest}
+        Şehir: ${formData.city}
+        İlçe: ${formData.district}
+        Daha Önceki Üyelik: ${formData.previousMembership}
+        Bütçe Aralığı: ${formData.budgetMin} - ${formData.budgetMax}
+        Notlar: ${formData.notes}
+        Ad: ${formData.firstName}
+        Soyad: ${formData.lastName}
+        Telefon: ${formData.phone}
+        E-posta: ${formData.email}
+        Meslek: ${formData.profession}
+        Eğitim Durumu: ${formData.education}
+      `;
+
+      window.location.href = `mailto:info@koopfon.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
       handleNext(); // Teşekkürler sayfasına git
     }
   };
@@ -296,7 +315,21 @@ const StepperForm: React.FC<StepperFormProps> = ({ open, handleClose }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth PaperProps={{ sx: { backgroundColor: 'var(--koopfon-primary-background)' } }}>
-      <DialogTitle>{activeStep === steps.length ? 'Teşekkürler' : 'Hemen Başvur'}</DialogTitle>
+      <DialogTitle>
+        {activeStep === steps.length ? 'Teşekkürler' : 'Hemen Başvur'}
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[800],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent>
         {activeStep === steps.length ? (
           <Box sx={{ textAlign: 'center', py: 4 }}>

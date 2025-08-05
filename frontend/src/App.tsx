@@ -17,6 +17,7 @@ import DocumentManagementPage from './pages/DocumentManagementPage';
 import LandingPage from "./pages/LandingPage";
 import KoopfonDetailPage from './pages/KoopfonDetailPage';
 import AboutUsPage from './pages/AboutUsPage';
+import ScrollToTop from './components/ScrollToTop';
 
 // Örnek oturum kontrolü (gerçek uygulamada authSlice veya context ile yapılmalı)
 const isAuthenticated = true;
@@ -42,17 +43,13 @@ const AdminRoutes: React.FC = () => (
 
 const App: React.FC = () => (
   <Router>
+    <ScrollToTop />
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/koopfon-detay" element={<KoopfonDetailPage />} />
+      <Route path="/kooperatif-kurmak-için-ortak-ariyoruz" element={<KoopfonDetailPage />} />
       <Route path="/hakkimizda" element={<AboutUsPage />} />
       <Route path="/login" element={<LoginPage />} />
-      {isAuthenticated ? (
-        <Route path="/admin/*" element={<AdminRoutes />} />
-      ) : (
-        <Route path="*" element={<Navigate to="/login" />} />
-      )}
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="/admin/*" element={isAuthenticated ? <AdminRoutes /> : <Navigate to="/login" />} />
     </Routes>
   </Router>
 );

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import ApplyButton from '../components/ApplyButton';
 import logoV11 from '../assets/images/logo-koopfon-2.png';
 import './LandingPage.css';
 
@@ -41,11 +42,16 @@ function AboutUsPage(): JSX.Element {
                 </Link>
               </div>
 
-              <h1 className="display-5 fw-bold koopfon-secondary mb-4">
-                Güvenilir Kooperatifçiliğin Dijital Adı
-              </h1>
+              <div className="d-md-flex justify-content-between align-items-center mb-4">
+                <h1 className="display-5 fw-bold koopfon-secondary mb-3 mb-md-0">
+                  Güvenilir Kooperatifçiliğin Dijital Adı
+                </h1>
+                <div className="ms-md-4 flex-shrink-0">
+                    <ApplyButton />
+                </div>
+              </div>
 
-              <p className="lead">
+              <p className="mb-4">
                 <strong>Koopfon.com</strong>, sunduğu dijital kooperatifçilik hizmetleri ile kullanıcı dostu, güvenilir, yenilikçi ve sürdürülebilir bir kooperatifleşme deneyimi sunmak amacıyla 2025 yılında yola çıktı.
               </p>
 
@@ -55,7 +61,7 @@ function AboutUsPage(): JSX.Element {
 
               <h3 className="fw-bold koopfon-primary mt-5">Misyonumuz</h3>
               <p className="mb-4">
-                Türkiye genelinde kooperatiflerin karşılaştığı sorunları çözmeye odaklanan ve sürdürülebilir ekonomik girişimleri destekleyen güçlü bir kooperatifçilik altyapısı ve anlayışı ulaşmak ve kullanıcılarımıza her zaman daha iyi sunmak.
+                Türkiye genelinde kooperatiflerin karşılaştığı sorunları çözmeye odaklanan ve sürdürülebilir ekonomik girişimleri destekleyen güçlü bir kooperatifçilik altyapısı ve anlayışına ulaşmak ve kullanıcılarımıza her zaman daha iyi sunmak.
               </p>
 
               <h3 className="fw-bold koopfon-primary mt-5">Değerlerimiz</h3>
