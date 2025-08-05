@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from './theme';
 import App from './App';
+import 'virtual:pwa-register';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

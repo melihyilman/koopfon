@@ -25,43 +25,43 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <Box sx={{ overflow: 'auto' }}>
       <Toolbar /> {/* AppBar'ın yüksekliği kadar boşluk bırakır */}
       <List>
-        <ListItem component={Link} to="/dashboard" onClick={isMobile ? handleDrawerToggle : undefined}>
+        <ListItem component={Link} to="/admin/dashboard" onClick={isMobile ? handleDrawerToggle : undefined}>
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Ana Sayfa" />
         </ListItem>
-        <ListItem component={Link} to="/cooperatives" onClick={isMobile ? handleDrawerToggle : undefined}>
+        <ListItem component={Link} to="/admin/cooperatives" onClick={isMobile ? handleDrawerToggle : undefined}>
           <ListItemIcon>
             <GroupIcon />
           </ListItemIcon>
           <ListItemText primary="Kooperatifler" />
         </ListItem>
-        <ListItem component={Link} to="/partners" onClick={isMobile ? handleDrawerToggle : undefined}>
+        <ListItem component={Link} to="/admin/partners" onClick={isMobile ? handleDrawerToggle : undefined}>
           <ListItemIcon>
             <PeopleIcon />
           </ListItemIcon>
           <ListItemText primary="Ortaklar" />
         </ListItem>
-        <ListItem component={Link} to="/users" onClick={isMobile ? handleDrawerToggle : undefined}>
+        <ListItem component={Link} to="/admin/users" onClick={isMobile ? handleDrawerToggle : undefined}>
           <ListItemIcon>
             <PersonIcon />
           </ListItemIcon>
           <ListItemText primary="Kullanıcılar" />
         </ListItem>
-        <ListItem component={Link} to="/general-meetings" onClick={isMobile ? handleDrawerToggle : undefined}>
+        <ListItem component={Link} to="/admin/general-meetings" onClick={isMobile ? handleDrawerToggle : undefined}>
           <ListItemIcon>
             <EventNoteIcon />
           </ListItemIcon>
           <ListItemText primary="Genel Kurul Toplantıları" />
         </ListItem>
-        <ListItem component={Link} to="/financials" onClick={isMobile ? handleDrawerToggle : undefined}>
+        <ListItem component={Link} to="/admin/financials" onClick={isMobile ? handleDrawerToggle : undefined}>
           <ListItemIcon>
             <AccountBalanceWalletIcon />
           </ListItemIcon>
           <ListItemText primary="Finansal Durum" />
         </ListItem>
-        <ListItem component={Link} to="/documents" onClick={isMobile ? handleDrawerToggle : undefined}>
+        <ListItem component={Link} to="/admin/documents" onClick={isMobile ? handleDrawerToggle : undefined}>
           <ListItemIcon>
             <FolderIcon />
           </ListItemIcon>

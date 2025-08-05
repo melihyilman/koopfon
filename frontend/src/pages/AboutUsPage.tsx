@@ -46,9 +46,7 @@ function AboutUsPage(): JSX.Element {
                 <h1 className="display-5 fw-bold koopfon-secondary mb-3 mb-md-0">
                   Güvenilir Kooperatifçiliğin Dijital Adı
                 </h1>
-                <div className="ms-md-4 flex-shrink-0">
-                    <ApplyButton />
-                </div>
+               
               </div>
 
               <p className="mb-4">

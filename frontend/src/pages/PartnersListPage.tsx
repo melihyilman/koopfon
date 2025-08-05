@@ -239,7 +239,7 @@ const PartnersListPage: React.FC = () => {
                   </TableCell>
                   <TableCell>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
-                      <Button component={Link} to={`/partners/${partner.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
+                      <Button component={Link} to={`/admin/partners/${partner.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
                         İncele
                       </Button>
                     </Stack>

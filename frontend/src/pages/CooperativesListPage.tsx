@@ -229,7 +229,7 @@ const CooperativesListPage: React.FC = () => {
                 <TableCell>{coop.kooperatifTuru}</TableCell>
                 <TableCell>{coop.rol}</TableCell>
                 <TableCell>
-                  <Button component={Link} to={`/cooperatives/${coop.id}`} variant="outlined" size="small">
+                  <Button component={Link} to={`/admin/cooperatives/${coop.id}`} variant="outlined" size="small">
                     Git
                   </Button>
                   <Button variant="outlined" size="small" sx={{ ml: 1 }}>

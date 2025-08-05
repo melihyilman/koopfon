@@ -199,7 +199,7 @@ const GeneralMeetingsListPage: React.FC = () => {
                     </Stack>
                   </TableCell>
                   <TableCell>
-                    <Button component={Link} to={`/general-meetings/${meeting.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
+                    <Button component={Link} to={`/admin/general-meetings/${meeting.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
                       İncele
                     </Button>
                   </TableCell>

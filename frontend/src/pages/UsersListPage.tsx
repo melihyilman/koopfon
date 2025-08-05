@@ -182,7 +182,7 @@ const UsersListPage: React.FC = () => {
                   <TableCell>{user.lastLogin}</TableCell>
                   <TableCell>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
-                      <Button component={Link} to={`/users/${user.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
+                      <Button component={Link} to={`/admin/users/${user.id}`} variant="outlined" size="small" startIcon={<LaunchIcon />}>
                         Düzenle
                       </Button>
                       <Button variant="outlined" size="small" color="error" startIcon={<DeleteIcon />} onClick={() => handleDeleteUser(user.id)}>
