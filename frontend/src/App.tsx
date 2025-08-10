@@ -14,9 +14,7 @@ import GeneralMeetingsListPage from './pages/GeneralMeetingsListPage';
 import GeneralMeetingDetailPage from './pages/GeneralMeetingDetailPage';
 import FinancialsPage from './pages/FinancialsPage';
 import DocumentManagementPage from './pages/DocumentManagementPage';
-import LandingPage from "./pages/LandingPage";
-import KoopfonDetailPage from './pages/KoopfonDetailPage';
-import AboutUsPage from './pages/AboutUsPage';
+// KoopfonDetailPage and AboutUsPage moved to landing page project
 import ScrollToTop from './components/ScrollToTop';
 
 // Örnek oturum kontrolü (gerçek uygulamada authSlice veya context ile yapılmalı)
@@ -45,9 +43,7 @@ const App: React.FC = () => (
   <Router>
     <ScrollToTop />
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/kooperatif-kurmak-için-ortak-ariyoruz" element={<KoopfonDetailPage />} />
-      <Route path="/hakkimizda" element={<AboutUsPage />} />
+      <Route path="/" element={<Navigate to="/admin" />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/admin/*" element={isAuthenticated ? <AdminRoutes /> : <Navigate to="/login" />} />
     </Routes>

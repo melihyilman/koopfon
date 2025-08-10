@@ -1,9 +1,19 @@
-import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
-// ApplyButton removed - now in landing page project
-import logoV11 from '../assets/images/logo-koopfon-2.png';
-// Landing page CSS removed - using inline styles instead
+import React from 'react';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
+import logoV11 from '@/assets/images/logo-koopfon-2.png';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Hakkımızda - Güvenilir Kooperatifçiliğin Dijital Adı | Koopfon",
+  description: "Koopfon.com, dijital kooperatifçilik hizmetleri ile kullanıcı dostu, güvenilir, yenilikçi ve sürdürülebilir bir kooperatifleşme deneyimi sunmak için kuruldu.",
+  keywords: "koopfon hakkında, dijital kooperatifçilik, kooperatif yönetimi, kooperatif kurulumu",
+  openGraph: {
+    title: "Hakkımızda - Güvenilir Kooperatifçiliğin Dijital Adı | Koopfon",
+    description: "Koopfon.com, dijital kooperatifçilik hizmetleri ile güvenilir ve sürdürülebilir bir kooperatifleşme deneyimi sunuyor.",
+    type: "website",
+  },
+};
 
 const ValueItem: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '15px' }}>
@@ -22,28 +32,26 @@ const ValueItem: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   </div>
 );
 
-function AboutUsPage(): JSX.Element {
+export default function AboutUsPage() {
   const footerRef = React.useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
-    <div className="koopfon-app">
+    <>
       <section data-theme="light" style={{ backgroundColor: 'var(--koopfon-primary-background)', minHeight: '100vh', padding: '3rem 0' }}>
-        <div className="container">
+        <div className="container-detail-page">
           <div className="row">
             <div className="col-lg-9 col-md-10">
               
-              <div className="logo-container mb-5 mt-3">
-                <Link to="/">
-                    <img src={logoV11} alt="Koopfon Logo" className="logo" style={{ height: '100px', cursor: 'pointer' }} />
+              <div style={{ marginBottom: '3rem', marginTop: '2rem' }}>
+                <Link href="/">
+                    <img src={logoV11.src} alt="Koopfon Logo" style={{ height: '100px', cursor: 'pointer' }} />
                 </Link>
               </div>
 
               <div className="d-md-flex justify-content-between align-items-center mb-4">
-                <h1 className="display-5 fw-bold koopfon-secondary mb-3 mb-md-0">
+                <h1 className="display-5 fw-bold mb-3 mb-md-0" style={{ 
+                  color: 'var(--koopfon-secondary)' 
+                }}>
                   Güvenilir Kooperatifçiliğin Dijital Adı
                 </h1>
                
@@ -57,12 +65,12 @@ function AboutUsPage(): JSX.Element {
                 Kuruluşumuzdan bu yana temel amacımız; ihtiyaçlarınıza, taleplerinize ve bütçenize uygun doğru yatırımları sizlerle buluşturmak, Kooperatiflerin iç dinamiklerini güçlendirmek, ortakları arası ilişkiler sağlıklı bir zemine taşımak, sektörde güveni artırmak; kooperatifçiliği yönetilebilir hale getirmek, dijital kooperatifçilik hizmetlerini herkes için erişilebilir kılmak, sürdürülebilir kalkınmayı desteklemek için akılcı, etkili ve etik bir platform sunmaktır.
               </p>
 
-              <h3 className="fw-bold koopfon-primary mt-5">Misyonumuz</h3>
+              <h3 className="fw-bold mt-5" style={{ color: 'var(--koopfon-primary)' }}>Misyonumuz</h3>
               <p className="mb-4">
                 Türkiye genelinde kooperatiflerin karşılaştığı sorunları çözmeye odaklanan ve sürdürülebilir ekonomik girişimleri destekleyen güçlü bir kooperatifçilik altyapısı ve anlayışına ulaşmak ve kullanıcılarımıza her zaman daha iyi sunmak.
               </p>
 
-              <h3 className="fw-bold koopfon-primary mt-5">Değerlerimiz</h3>
+              <h3 className="fw-bold mt-5" style={{ color: 'var(--koopfon-primary)' }}>Değerlerimiz</h3>
               <div style={{ marginBottom: '20px' }}>
                 <ValueItem>
                   <strong>Uzmanlık ve Güvenilirlik:</strong> Alanında deneyimli profesyonellerle çalışıyor ve güven esaslı bir hizmet sunuyoruz.
@@ -91,8 +99,6 @@ function AboutUsPage(): JSX.Element {
         </div>
       </section>
       <Footer ref={footerRef} theme="light" />
-    </div>
+    </>
   );
 }
-
-export default AboutUsPage;

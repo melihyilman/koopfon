@@ -1,0 +1,51 @@
+/* Features Section Styles */
+.features-section {
+  background-color: var(--koopfon-primary);
+  padding-bottom: 5rem;
+}
+
+.section-title-badge {
+  background-color: var(--koopfon-primary-background);
+  border-radius: 0rem 0rem 2rem 2rem;
+  padding: 1rem 2rem;
+  display: inline-block;
+  color: var(--koopfon-primary);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+}
+
+.feature-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.feature-number {
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.feature-number span {
+  color: var(--koopfon-primary);
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+  .section-title-badge { padding: 0.75rem 1.5rem; }
+}

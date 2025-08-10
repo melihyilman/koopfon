@@ -1,13 +1,14 @@
+'use client';
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Fab } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Footer from '../components/Footer';
-import HeroSection from '../components/HeroSection';
-import FeaturesSection from '../components/FeaturesSection';
-import ContactSection from '../components/ContactSection';
-import './LandingPage.css';
+import Footer from '@/components/Footer';
+import HeroSection from '@/components/HeroSection';
+import FeaturesSection from '@/components/FeaturesSection';
+import ContactSection from '@/components/ContactSection';
 
-function LandingPage(): JSX.Element {
+export default function HomePage() {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [fabStyle, setFabStyle] = useState({});
 
@@ -71,7 +72,7 @@ function LandingPage(): JSX.Element {
   };
 
   return (
-    <div className="koopfon-app">
+    <>
       <HeroSection ref={heroRef} data-theme="light" />
       <FeaturesSection ref={featuresRef} data-theme="dark" />
       <ContactSection ref={contactRef} data-theme="light" />
@@ -92,8 +93,6 @@ function LandingPage(): JSX.Element {
           <KeyboardArrowUpIcon />
         </Fab>
       )}
-    </div>
+    </>
   );
 }
-
-export default LandingPage;

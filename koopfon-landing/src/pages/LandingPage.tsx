@@ -5,7 +5,6 @@ import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
 import FeaturesSection from '../components/FeaturesSection';
 import ContactSection from '../components/ContactSection';
-import './LandingPage.css';
 
 function LandingPage(): JSX.Element {
   const [showScrollButton, setShowScrollButton] = useState(false);

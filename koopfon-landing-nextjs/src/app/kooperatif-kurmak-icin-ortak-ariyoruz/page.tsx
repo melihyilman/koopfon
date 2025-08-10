@@ -1,38 +1,53 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
-// ApplyButton removed - now in landing page project
-import logoV11 from '../assets/images/logo-koopfon-2.png';
-// Landing page CSS removed - using inline styles instead
+import React from 'react';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
+import ApplyButton from '@/components/ApplyButton';
+import logoV11 from '@/assets/images/logo-koopfon-2.png';
+import type { Metadata } from 'next';
 
-function KoopfonDetailPage(): JSX.Element {
+export const metadata: Metadata = {
+  title: "Kooperatif Kurmak İçin Ortak Arıyoruz! | Koopfon",
+  description: "Küçük bütçelerle birlikte ev yapalım! Yapı kooperatifi kurarak ev sahibi olmak için bize katılın. Güvenli ve dayanışmacı yaşam için ortaklar arıyoruz.",
+  keywords: "yapı kooperatifi, kooperatif kurmak, ortak arıyoruz, ev yapmak, kooperatifçilik",
+  openGraph: {
+    title: "Kooperatif Kurmak İçin Ortak Arıyoruz! | Koopfon",
+    description: "Küçük bütçelerle birlikte ev yapalım! Yapı kooperatifi kurarak ev sahibi olmak için bize katılın.",
+    type: "article",
+  },
+};
+
+export default function KoopfonDetailPage() {
   const footerRef = React.useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    document.title = "Kooperatif Kurmak İçin Ortak Arıyoruz!";
-  }, []);
-
   return (
-    <div className="koopfon-app">
-      <section data-theme="light" className="hero-section" style={{ minHeight: 'auto', height: 'auto', padding: '3rem 0' }}>
-        <div className="container">
+    <>
+      <section data-theme="light" style={{ 
+        minHeight: 'auto', 
+        height: 'auto', 
+        padding: '3rem 0',
+        backgroundColor: 'var(--koopfon-primary-background)'
+      }}>
+        <div className="container-detail-page">
           <div className="row">
             <div className="col-lg-9 col-md-10">
               
-              <div className="logo-container mb-5 mt-3">
-                <Link to="/">
-                  <img src={logoV11} alt="Koopfon Logo" className="logo" style={{ height: '100px', cursor: 'pointer' }} />
+              <div style={{ marginBottom: '3rem', marginTop: '2rem' }}>
+                <Link href="/">
+                  <img src={logoV11.src} alt="Koopfon Logo" style={{ 
+                    height: '100px', 
+                    cursor: 'pointer' 
+                  }} />
                 </Link>
               </div>
 
               <div className="d-md-flex justify-content-between align-items-center mb-4">
-                <h1 className="display-5 fw-bold koopfon-secondary mb-3 mb-md-0">
+                <h1 className="display-5 fw-bold mb-3 mb-md-0" style={{ 
+                  color: 'var(--koopfon-secondary)' 
+                }}>
                   Birlikte Kooperatif Kurmak İçin Ortak Arıyoruz!
                 </h1>
                 <div className="ms-md-4 flex-shrink-0">
-                    <a href="mailto:info@koopfon.com" className="btn btn-koopfon-secondary btn-lg px-4 py-2">
-                      İletişime Geç
-                    </a>
+                    <ApplyButton />
                 </div>
               </div>
 
@@ -47,22 +62,22 @@ function KoopfonDetailPage(): JSX.Element {
                 Son yıllarda konut fiyatları öyle arttı ki, çoğumuz için ev sahibi olmak neredeyse imkânsız hale geldi. Ancak bireysel mücadele yerine, kolektif çözüm yolları arayışı ile bir araya geldiğimizde, hepimiz için daha ulaşılabilir ve sürdürülebilir bir çözüm olarak karşımıza "Yapı kooperatifleri" çıkıyor.
               </p>
 
-              <h4 className="fw-bold koopfon-primary mt-5">Kimleri Arıyoruz?</h4>
+              <h4 className="fw-bold mt-5" style={{ color: 'var(--koopfon-primary)' }}>Kimleri Arıyoruz?</h4>
               <p className="mb-4">
-                Biz de tam bu noktada, aynı meslek gruplarından, yaklaşık aynı bütçelere ve benzer beklentilere sahip, ev sahibi olmak isteyen ama piyasadaki sürekli olarak artan fiyatlara yetişemeyen, ortak hayalleri olan insanları bir araya getirmeyi hedefledik. Şimdi bu hayalimizi büyütmek, birlikte bir yapı kooperatifi kurmak için aynı yolda yürümek isteyen, “birlikte güvenli ve dayanışmacı bir yaşam kuralım” diyen ortaklar arıyoruz. 
+                Biz de tam bu noktada, aynı meslek gruplarından, yaklaşık aynı bütçelere ve benzer beklentilere sahip, ev sahibi olmak isteyen ama piyasadaki sürekli olarak artan fiyatlara yetişemeyen, ortak hayalleri olan insanları bir araya getirmeyi hedefledik. Şimdi bu hayalimizi büyütmek, birlikte bir yapı kooperatifi kurmak için aynı yolda yürümek isteyen, "birlikte güvenli ve dayanışmacı bir yaşam kuralım" diyen ortaklar arıyoruz. 
               </p>
 
-              <h4 className="fw-bold koopfon-primary mt-5">Neden Kooperatife Katılmalıyım?</h4>
+              <h4 className="fw-bold mt-5" style={{ color: 'var(--koopfon-primary)' }}>Neden Kooperatife Katılmalıyım?</h4>
               <p className="mb-4">
                 Kooperatifçilik, ev sahibi olmanın daha adil ve uygun maliyetli bir yoludur. Bu kooperatifçilik modeli, şeffaf ve katılımcı bir sisteme konut sahibi olmayı mümkün kılar. Arsa alımından projelendirmeye, inşa sürecinden yerleşme kadar tüm adımlar ortak akılla ilerler. Her şey sizin bildiğiniz ve onayınızla gerçekleşir. Bu süreçte hep birlikte daha uygun fiyata ev sahibi olurken hem de güvenli ve dayanışma içinde ilerleyen bir süreç yaşarız.
               </p>
 
-              <h4 className="fw-bold koopfon-primary mt-5">Ne Aşamadayız?</h4>
+              <h4 className="fw-bold mt-5" style={{ color: 'var(--koopfon-primary)' }}>Ne Aşamadayız?</h4>
               <p className="mb-4">
                 Farklı şehir ve bölgelerden arsa araştırmasıyla birlikte ortak arama sürecimiz de devam etmektedir. Talepler doğrultusunda, kooperatiflerin kuruluş süreçlerini resmen başlatacağız.
               </p>
 
-              <h4 className="fw-bold koopfon-primary mt-5">Siz de Aramıza Katılın!</h4>
+              <h4 className="fw-bold mt-5" style={{ color: 'var(--koopfon-primary)' }}>Siz de Aramıza Katılın!</h4>
               <p className="mb-4">
                 Eğer siz de gücünüzü bizimle birleştirmek isterseniz, beklentilerinizi ve sorularınızı detayıca konuşabileceğimiz bir görüşme ile tanışmak isteriz.
               </p>
@@ -80,8 +95,6 @@ function KoopfonDetailPage(): JSX.Element {
         </div>
       </section>
       <Footer ref={footerRef} theme="light" />
-    </div>
+    </>
   );
 }
-
-export default KoopfonDetailPage;
