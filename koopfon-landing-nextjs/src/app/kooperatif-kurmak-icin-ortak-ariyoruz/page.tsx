@@ -1,20 +1,11 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Footer from '@/components/Footer';
 import ApplyButton from '@/components/ApplyButton';
 import logoV11 from '@/assets/images/logo-koopfon-2.png';
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: "Kooperatif Kurmak İçin Ortak Arıyoruz! | Koopfon",
-  description: "Küçük bütçelerle birlikte ev yapalım! Yapı kooperatifi kurarak ev sahibi olmak için bize katılın. Güvenli ve dayanışmacı yaşam için ortaklar arıyoruz.",
-  keywords: "yapı kooperatifi, kooperatif kurmak, ortak arıyoruz, ev yapmak, kooperatifçilik",
-  openGraph: {
-    title: "Kooperatif Kurmak İçin Ortak Arıyoruz! | Koopfon",
-    description: "Küçük bütçelerle birlikte ev yapalım! Yapı kooperatifi kurarak ev sahibi olmak için bize katılın.",
-    type: "article",
-  },
-};
 
 export default function KoopfonDetailPage() {
   const footerRef = React.useRef<HTMLElement>(null);
@@ -33,10 +24,20 @@ export default function KoopfonDetailPage() {
               
               <div style={{ marginBottom: '3rem', marginTop: '2rem' }}>
                 <Link href="/">
-                  <img src={logoV11.src} alt="Koopfon Logo" style={{ 
-                    height: '100px', 
-                    cursor: 'pointer' 
-                  }} />
+                  <Image 
+                    src={logoV11} 
+                    alt="Koopfon Logo" 
+                    height={100}
+                    width={200}
+                    style={{ 
+                      cursor: 'pointer',
+                      height: '100px',
+                      width: 'auto',
+                      transition: 'opacity 0.3s ease-in-out'
+                    }}
+                    quality={90}
+                    loading="eager"
+                  />
                 </Link>
               </div>
 
@@ -52,19 +53,19 @@ export default function KoopfonDetailPage() {
               </div>
 
               <p className="mb-4">
-                <span className="fw-bold">"Küçük bütçelerle, birlikte ev yapalım"</span> diyenler, bu çağrı size.
+                <span className="fw-bold">&quot;Küçük bütçelerle, birlikte ev yapalım&quot;</span> diyenler, bu çağrı size.
               </p>
 
               <p className="mb-4">
                 Hepimiz aynı soruyu soruyoruz: Bu şartlarda nasıl ev sahibi olacağız?
               </p>
               <p className="mb-4">
-                Son yıllarda konut fiyatları öyle arttı ki, çoğumuz için ev sahibi olmak neredeyse imkânsız hale geldi. Ancak bireysel mücadele yerine, kolektif çözüm yolları arayışı ile bir araya geldiğimizde, hepimiz için daha ulaşılabilir ve sürdürülebilir bir çözüm olarak karşımıza "Yapı kooperatifleri" çıkıyor.
+                Son yıllarda konut fiyatları öyle arttı ki, çoğumuz için ev sahibi olmak neredeyse imkânsız hale geldi. Ancak bireysel mücadele yerine, kolektif çözüm yolları arayışı ile bir araya geldiğimizde, hepimiz için daha ulaşılabilir ve sürdürülebilir bir çözüm olarak karşımıza &quot;Yapı kooperatifleri&quot; çıkıyor.
               </p>
 
               <h4 className="fw-bold mt-5" style={{ color: 'var(--koopfon-primary)' }}>Kimleri Arıyoruz?</h4>
               <p className="mb-4">
-                Biz de tam bu noktada, aynı meslek gruplarından, yaklaşık aynı bütçelere ve benzer beklentilere sahip, ev sahibi olmak isteyen ama piyasadaki sürekli olarak artan fiyatlara yetişemeyen, ortak hayalleri olan insanları bir araya getirmeyi hedefledik. Şimdi bu hayalimizi büyütmek, birlikte bir yapı kooperatifi kurmak için aynı yolda yürümek isteyen, "birlikte güvenli ve dayanışmacı bir yaşam kuralım" diyen ortaklar arıyoruz. 
+                Biz de tam bu noktada, aynı meslek gruplarından, yaklaşık aynı bütçelere ve benzer beklentilere sahip, ev sahibi olmak isteyen ama piyasadaki sürekli olarak artan fiyatlara yetişemeyen, ortak hayalleri olan insanları bir araya getirmeyi hedefledik. Şimdi bu hayalimizi büyütmek, birlikte bir yapı kooperatifi kurmak için aynı yolda yürümek isteyen, &quot;birlikte güvenli ve dayanışmacı bir yaşam kuralım&quot; diyen ortaklar arıyoruz. 
               </p>
 
               <h4 className="fw-bold mt-5" style={{ color: 'var(--koopfon-primary)' }}>Neden Kooperatife Katılmalıyım?</h4>

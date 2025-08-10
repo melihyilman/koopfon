@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
 import ContactSection from '@/components/ContactSection';
+import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 
 export default function HomePage() {
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -77,6 +78,8 @@ export default function HomePage() {
       <FeaturesSection ref={featuresRef} data-theme="dark" />
       <ContactSection ref={contactRef} data-theme="light" />
       <Footer ref={footerRef} />
+      
+      <PWAInstallPrompt />
 
       {showScrollButton && (
         <Fab

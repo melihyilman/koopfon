@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./globals.css";
+import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 
 export const metadata: Metadata = {
   title: "Koopfon - Güvenilir Kooperatifçiliğin Dijital Adı",
@@ -40,6 +41,7 @@ export default function RootLayout({
         <div className="koopfon-app">
           {children}
         </div>
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );

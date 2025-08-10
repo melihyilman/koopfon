@@ -40,7 +40,7 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(({ theme = 'dark' }, r
           <div className="col-md-4 mb-4 mb-md-0">
             <h5 className="fw-semibold mb-3">Kurumsal</h5>
             <ul className="list-unstyled">
-              <li className="mb-2"><Link to="/hakkimizda" className="footer-link">Hakkımızda</Link></li>
+              <li className="mb-2"><Link href="/hakkimizda" className="footer-link">Hakkımızda</Link></li>
               <li className="mb-2"><a href="#" className="footer-link">Gizlilik Politikası</a></li>
               <li className="mb-2"><a href="#" className="footer-link">Çerez Politikası</a></li>
               <li className="mb-2"><a href="#" className="footer-link">Bilgi Güvenliği Politikası</a></li>

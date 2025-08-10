@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, ChangeEvent, FormEvent, forwardRef } from 'react';
 import { TextField, Button, Box, Snackbar, Alert as MuiAlert, Slide } from '@mui/material';
 import './ContactSection.css';
@@ -251,7 +253,9 @@ const ContactSection = forwardRef<HTMLElement, ContactSectionProps>((props, ref)
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         TransitionComponent={Slide}
       >
-        <Alert
+        <MuiAlert
+          elevation={6}
+          variant="filled"
           onClose={handleSnackbarClose}
           severity={snackbarSeverity}
           sx={{
@@ -262,7 +266,7 @@ const ContactSection = forwardRef<HTMLElement, ContactSectionProps>((props, ref)
           }}
         >
           {snackbarMessage}
-        </Alert>
+        </MuiAlert>
       </Snackbar>
     </>
   );

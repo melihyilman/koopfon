@@ -21,7 +21,7 @@ const FeaturesSection = forwardRef<HTMLElement, FeaturesSectionProps>((props, re
           {/* Left Side - Graphics */}
           <div className="col-lg-6 mb-5 mb-lg-0">
             <div className="graphics-container text-center">
-              <img src={whatKoopfonDoes} alt="What Koopfon Does" className="img-fluid" />
+              <img src={whatKoopfonDoes.src} alt="What Koopfon Does" className="img-fluid" />
             </div>
           </div>
           

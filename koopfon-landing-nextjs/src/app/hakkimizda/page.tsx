@@ -1,19 +1,10 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Footer from '@/components/Footer';
 import logoV11 from '@/assets/images/logo-koopfon-2.png';
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: "Hakkımızda - Güvenilir Kooperatifçiliğin Dijital Adı | Koopfon",
-  description: "Koopfon.com, dijital kooperatifçilik hizmetleri ile kullanıcı dostu, güvenilir, yenilikçi ve sürdürülebilir bir kooperatifleşme deneyimi sunmak için kuruldu.",
-  keywords: "koopfon hakkında, dijital kooperatifçilik, kooperatif yönetimi, kooperatif kurulumu",
-  openGraph: {
-    title: "Hakkımızda - Güvenilir Kooperatifçiliğin Dijital Adı | Koopfon",
-    description: "Koopfon.com, dijital kooperatifçilik hizmetleri ile güvenilir ve sürdürülebilir bir kooperatifleşme deneyimi sunuyor.",
-    type: "website",
-  },
-};
 
 const ValueItem: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '15px' }}>
@@ -44,7 +35,20 @@ export default function AboutUsPage() {
               
               <div style={{ marginBottom: '3rem', marginTop: '2rem' }}>
                 <Link href="/">
-                    <img src={logoV11.src} alt="Koopfon Logo" style={{ height: '100px', cursor: 'pointer' }} />
+                    <Image 
+                      src={logoV11} 
+                      alt="Koopfon Logo" 
+                      height={100}
+                      width={200}
+                      style={{ 
+                        cursor: 'pointer',
+                        height: '100px',
+                        width: 'auto',
+                        transition: 'opacity 0.3s ease-in-out'
+                      }}
+                      quality={90}
+                      loading="eager"
+                    />
                 </Link>
               </div>
 

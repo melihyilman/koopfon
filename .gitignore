@@ -40,3 +40,7 @@ kullanim_klavuz.pdf
 *.pdf
 .vscode/settings.json
 /services/contact-service/config.json
+
+# Landing Page Production Files
+koopfon-production/
+koopfon-website-*.zip

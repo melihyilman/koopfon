@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Typewriter from 'typewriter-effect';
 import logoV11 from '@/assets/images/logo-koopfon-2.png';
 import buildAsset from '@/assets/images/build-asset.png';
@@ -19,7 +20,15 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>((props, ref) => {
           <div className="col-lg-6">
             {/* Logo */}
             <div className="logo-container">
-              <img src={logoV11} alt="Koopfon Logo" className="logo" />
+              <Image 
+                src={logoV11} 
+                alt="Koopfon Logo" 
+                className="logo" 
+                priority
+                quality={90}
+                loading="eager"
+                style={{ transition: 'opacity 0.3s ease-in-out' }}
+              />
             </div>
             
             {/* Main Heading */}
@@ -47,7 +56,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>((props, ref) => {
             
             {/* Description */}
             <p className="lead text-muted mb-4">
-              Bize taleplerinizi iletin, bütçenize uygun doğru yatırımları sizlerle buluşturalım. Daha fazla bilgi için <Link to="/kooperatif-kurmak-için-ortak-ariyoruz" style={{fontWeight: 'bold', color: 'inherit', textDecoration: 'none'}}>tıklayın.</Link>
+              Bize taleplerinizi iletin, bütçenize uygun doğru yatırımları sizlerle buluşturalım. Daha fazla bilgi için <Link href="/kooperatif-kurmak-icin-ortak-ariyoruz" style={{fontWeight: 'bold', color: 'inherit', textDecoration: 'none'}}>tıklayın.</Link>
             </p>
             
             {/* CTA Button */}
@@ -57,7 +66,14 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>((props, ref) => {
           {/* Right Content - Build Asset Image */}
           <div className="col-lg-6 d-flex align-items-center justify-content-center">
             <div className="hero-image">
-              <img src={buildAsset} alt="Building Asset" className="hero-asset-image" />
+              <Image 
+                src={buildAsset} 
+                alt="Building Asset" 
+                className="hero-asset-image"
+                quality={85}
+                loading="lazy"
+                style={{ transition: 'opacity 0.3s ease-in-out' }}
+              />
             </div>
           </div>
         </div>
